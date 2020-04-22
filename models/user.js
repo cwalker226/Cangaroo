@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isEmail: true,
       },
+      primaryKey: true,
     },
     // The password cannot be null
     password: {
