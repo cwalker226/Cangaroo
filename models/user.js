@@ -19,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // User type must be admin, donor or client
-    userType: {
+    // User type must be admin, vendor, donor or client
+    user_type: {
       type: DataTypes.ENUM({
         values: ['admin', 'vendor', 'donor', 'client'],
       }),
