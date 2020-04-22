@@ -1,4 +1,8 @@
 // Requiring necessary npm packages
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config(); /* eslint global-require: "off" */
+}
+
 const express = require('express');
 const session = require('express-session');
 // Requiring passport as we've configured it
