@@ -19,6 +19,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    // User type must be admin, donor or client
+    userType: {
+      type: DataTypes.ENUM({
+        values: ['admin', 'vendor', 'donor', 'client'],
+      }),
+    },
   });
   // Creating a custom method for our User model. This will check if an unhashed password
   // entered by the user can be compared to the hashed password stored in our database
