@@ -1,5 +1,3 @@
-const Product = require('./product');
-
 // Creating our Product model
 module.exports = (sequelize, DataTypes) => {
   const Inventory = sequelize.define('Inventory', {
@@ -11,7 +9,13 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   // Will add productId to Inventory model
-  Inventory.belongsTo(Product);
+  Inventory.associate = (models) => {
+    Inventory.belongsTo(models.Product, {
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+  };
 
   return Inventory;
 };
