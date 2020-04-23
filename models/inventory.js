@@ -1,4 +1,4 @@
-// Creating our Product model
+// Creating our Inventory model
 module.exports = (sequelize, DataTypes) => {
   const Inventory = sequelize.define('Inventory', {
     // Quantity on  hand
