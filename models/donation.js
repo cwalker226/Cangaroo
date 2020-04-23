@@ -1,6 +1,3 @@
-// Import Sequelize so we can access the 'now' function
-const Sequelize = require('sequelize');
-
 // Creating our Donation model
 module.exports = (sequelize, DataTypes) => {
   const Donation = sequelize.define('Donation', {
