@@ -1,6 +1,6 @@
 // Creating our Product model
 module.exports = (sequelize, DataTypes) => {
-  const Product = sequelize.define('User', {
+  const Product = sequelize.define('Product', {
     // The name cannot be null
     name: {
       type: DataTypes.STRING,
