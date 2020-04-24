@@ -34,6 +34,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
     });
+    User.hasMany(models.Assist, {
+      foreignKey: {
+        allowNull: false,
+      },
+    });
   };
 
   // Creating a custom method for our User model. This will check if an unhashed password

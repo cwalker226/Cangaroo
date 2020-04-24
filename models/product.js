@@ -36,6 +36,13 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
     });
+    // Add ProductId to Assist model
+    Product.hasMany(models.Assist, {
+      as: 'ProductAssist',
+      foreignKey: {
+        allowNull: false,
+      },
+    });
   };
 
   return Product;
