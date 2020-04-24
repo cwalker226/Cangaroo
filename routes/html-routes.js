@@ -5,6 +5,7 @@ const path = require('path');
 const isAuthenticated = require('../config/middleware/isAuthenticated');
 // Check if a user is a client
 const isClient = require('../config/middleware/isClient');
+const isDonor = require('../config/middleware/isDonor');
 
 
 module.exports = (app) => {
@@ -42,7 +43,7 @@ module.exports = (app) => {
   app.get('/members/clients', isClient, (req, res) => {
     res.sendFile(path.join(__dirname, '../public/clients.html'));
   });
-  app.get('/members/donors', isAuthenticated, (req, res) => {
+  app.get('/members/donors', isDonor, (req, res) => {
     res.sendFile(path.join(__dirname, '../public/donors.html'));
   });
 };
