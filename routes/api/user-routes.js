@@ -1,6 +1,6 @@
 // Requiring our models and passport as we've configured it
-const db = require('../models');
-const passport = require('../config/passport');
+const db = require('../../models');
+const passport = require('../../config/passport');
 
 module.exports = (app) => {
   // Using the passport.authenticate middleware with our local strategy.
@@ -10,7 +10,7 @@ module.exports = (app) => {
     // Sending back a password, even a hashed password, isn't a good idea
     res.json({
       email: req.user.email,
-      id: req.user.id,
+      // id: req.user.id,
     });
   });
 
@@ -46,7 +46,7 @@ module.exports = (app) => {
       // Sending back a password, even a hashed password, isn't a good idea
       res.json({
         email: req.user.email,
-        id: req.user.id,
+        // id: req.user.id,
       });
     }
   });
