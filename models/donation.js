@@ -17,14 +17,5 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  // Add UserId to Donation model
-  Donation.associate = (models) => {
-    Donation.belongsTo(models.User, {
-      foreignKey: {
-        allowNull: false,
-      },
-    });
-  };
-
   return Donation;
 };
