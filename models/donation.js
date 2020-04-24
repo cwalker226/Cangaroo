@@ -8,14 +8,5 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  // Add ProductId to Donation model
-  Donation.associate = (models) => {
-    Donation.belongsTo(models.Product, {
-      foreignKey: {
-        allowNull: false,
-      },
-    });
-  };
-
   return Donation;
 };
