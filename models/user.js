@@ -12,11 +12,18 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isEmail: true,
       },
+      primaryKey: true,
     },
     // The password cannot be null
     password: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    // User type must be admin, vendor, donor or client
+    user_type: {
+      type: DataTypes.ENUM({
+        values: ['admin', 'vendor', 'donor', 'client'],
+      }),
     },
   });
   // Creating a custom method for our User model. This will check if an unhashed password
