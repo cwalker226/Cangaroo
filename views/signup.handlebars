@@ -1,0 +1,42 @@
+<section class="section">
+    <div class="container">
+        <h2>Sign Up Form</h2>
+        <div class="signup">
+            <div class="field">
+                <label>I am a:</label>
+                <div class="control">
+                    <label class="radio">
+                        <input type="radio" id="usertype-client-input" name="usertype-input" value="client" checked>
+                        Client
+                    </label>
+                </div>
+                <div class="control">
+                    <label class="radio">
+                        <input type="radio" id="usertype-donor-input" name="usertype-input" value="donor">
+                        Donor
+                    </label>
+                </div>
+            </div>
+        
+            <div class="field">
+                <label class="label">Email address</label>
+                <input type="email" id="email-input" placeholder="Email">
+            </div>
+
+            <div class="field">
+                <label class="label">Password</label>
+                <input type="password" id="password-input" placeholder="Password">
+            </div>
+
+            <div style="display: none" id="alert" class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span> <span class="msg"></span>
+            </div>
+
+            <button type="submit" class="button">Sign Up</button>
+        </div>
+        <br />
+        <p>Or log in <a href="/login">here</a></p>
+    </div>
+</section>
+<script type="text/javascript" src="js/signup.js"></script>
