@@ -3,8 +3,21 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config(); /* eslint global-require: "off" */
 }
 
+// Creating express app and configuring middleware needed for authentication
 const express = require('express');
 const session = require('express-session');
+
+const app = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static('public'));
+
+// Set Handlebars.
+const exphbs = require('express-handlebars');
+
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
+
 // Requiring passport as we've configured it
 const passport = require('./config/passport');
 
@@ -12,18 +25,17 @@ const passport = require('./config/passport');
 const PORT = process.env.PORT || 8080;
 const db = require('./models');
 
-// Creating express app and configuring middleware needed for authentication
-const app = express();
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static('public'));
 // We need to use sessions to keep track of our user's login status
 app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 // Requiring our routes
-require('./routes/html-routes.js')(express);
+const htmlRoutes = require('./routes/html-routes.js')(express);
+
+app.use(htmlRoutes);
+
 require('./routes/api/assist-routes')(app);
 require('./routes/api/user-routes.js')(app);
 require('./routes/api/product-routes.js')(app);
@@ -36,17 +48,3 @@ db.sequelize.sync().then(() => {
     console.log('==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.', PORT, PORT);
   });
 });
-
-// db.User.sync().then(() => {
-//   db.Product.sync().then(() => {
-//     db.Donation.sync().then(() => {
-//       db.Inventory.sync().then(() => {
-//         db.Assist.sync().then(() => {
-//           app.listen(PORT, () => {
-//             console.log('==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.', PORT, PORT);
-//           });
-//         });
-//       });
-//     });
-//   });
-// });
