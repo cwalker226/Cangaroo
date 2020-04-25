@@ -21,11 +21,6 @@ module.exports = (app) => {
     // If the user already has an account send them to the members page
     if (req.user) {
       res.redirect('/members');
-      // if (req.user.user_type === 'client') {
-      //   res.redirect('/members/clients');
-      // } else if (req.user.user_type === 'donor') {
-      //   res.redirect('/members/donors');
-      // }
     }
     res.sendFile(path.join(__dirname, '../public/login.html'));
   });
