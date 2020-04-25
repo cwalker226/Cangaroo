@@ -8,9 +8,8 @@ const isClient = require('../config/middleware/isClient');
 const isDonor = require('../config/middleware/isDonor');
 
 
-module.exports = (express) => {
-  const router = express.Router();
-  router.get('/', (req, res) => {
+module.exports = (app) => {
+  app.get('/', (req, res) => {
     // If the user already has an account send them to the members page
     if (req.user) {
       res.redirect('/members');
@@ -18,7 +17,7 @@ module.exports = (express) => {
     res.sendFile(path.join(__dirname, '../public/signup.html'));
   });
 
-  router.get('/login', (req, res) => {
+  app.get('/login', (req, res) => {
     // If the user already has an account send them to the members page
     if (req.user) {
       res.redirect('/members');
@@ -29,17 +28,17 @@ module.exports = (express) => {
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route
   // they will be redirected to the signup page
-  router.get('/members', isAuthenticated, (req, res) => {
+  app.get('/members', isAuthenticated, (req, res) => {
     if (req.user.user_type === 'client') {
       res.redirect('/members/clients');
     } else if (req.user.user_type === 'donor') {
       res.redirect('/members/donors');
     }
   });
-  router.get('/members/clients', isClient, (req, res) => {
-    res.render('clients');
+  app.get('/members/clients', isClient, (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/clients.html'));
   });
-  router.get('/members/donors', isDonor, (req, res) => {
+  app.get('/members/donors', isDonor, (req, res) => {
     res.sendFile(path.join(__dirname, '../public/donors.html'));
   });
 };
