@@ -36,3 +36,17 @@ db.sequelize.sync().then(() => {
     console.log('==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.', PORT, PORT);
   });
 });
+
+// db.User.sync().then(() => {
+//   db.Product.sync().then(() => {
+//     db.Donation.sync().then(() => {
+//       db.Inventory.sync().then(() => {
+//         db.Assist.sync().then(() => {
+//           app.listen(PORT, () => {
+//             console.log('==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.', PORT, PORT);
+//           });
+//         });
+//       });
+//     });
+//   });
+// });

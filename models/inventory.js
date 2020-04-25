@@ -8,14 +8,5 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  // Will add productId to Inventory model
-  Inventory.associate = (models) => {
-    Inventory.belongsTo(models.Product, {
-      foreignKey: {
-        allowNull: false,
-      },
-    });
-  };
-
   return Inventory;
 };

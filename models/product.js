@@ -21,5 +21,29 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
+  // Add ProductId to Donation model
+  Product.associate = (models) => {
+    Product.hasMany(models.Donation, {
+      as: 'ProductDonation',
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+    // Add ProductId to Inventory model
+    Product.hasMany(models.Inventory, {
+      as: 'ProductInventory',
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+    // Add ProductId to Assist model
+    Product.hasMany(models.Assist, {
+      as: 'ProductAssist',
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+  };
+
   return Product;
 };

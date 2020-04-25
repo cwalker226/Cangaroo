@@ -10,7 +10,7 @@ module.exports = (app) => {
     // Sending back a password, even a hashed password, isn't a good idea
     res.json({
       email: req.user.email,
-      // id: req.user.id,
+      user_type: req.user.user_type,
     });
   });
 
@@ -21,6 +21,7 @@ module.exports = (app) => {
     db.User.create({
       email: req.body.email,
       password: req.body.password,
+      user_type: req.body.userType,
     })
       .then(() => {
         res.redirect(307, '/api/login');
@@ -46,7 +47,7 @@ module.exports = (app) => {
       // Sending back a password, even a hashed password, isn't a good idea
       res.json({
         email: req.user.email,
-        // id: req.user.id,
+        user_type: req.user.user_type,
       });
     }
   });
