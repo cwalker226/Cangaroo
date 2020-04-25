@@ -23,6 +23,9 @@ module.exports = {
     return queryInterface.bulkDelete('Donations', [{
       id: 1,
     },
+    {
+      id: 2,
+    },
     ]);
   },
 };
