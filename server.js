@@ -31,22 +31,22 @@ require('./routes/api/donate-routes.js')(app);
 require('./routes/api/inventory-routes.js')(app);
 
 // Syncing our database and logging a message to the user upon success
-// db.sequelize.sync().then(() => {
-//   app.listen(PORT, () => {
-//     console.log('==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.', PORT, PORT);
-//   });
-// });
-
-db.User.sync().then(() => {
-  db.Product.sync().then(() => {
-    db.Donation.sync().then(() => {
-      db.Inventory.sync().then(() => {
-        db.Assist.sync().then(() => {
-          app.listen(PORT, () => {
-            console.log('==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.', PORT, PORT);
-          });
-        });
-      });
-    });
+db.sequelize.sync().then(() => {
+  app.listen(PORT, () => {
+    console.log('==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.', PORT, PORT);
   });
 });
+
+// db.User.sync().then(() => {
+//   db.Product.sync().then(() => {
+//     db.Donation.sync().then(() => {
+//       db.Inventory.sync().then(() => {
+//         db.Assist.sync().then(() => {
+//           app.listen(PORT, () => {
+//             console.log('==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.', PORT, PORT);
+//           });
+//         });
+//       });
+//     });
+//   });
+// });
