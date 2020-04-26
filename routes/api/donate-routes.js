@@ -16,6 +16,16 @@ module.exports = (app) => {
       res.json(dbdonation);
     });
   });
+  // GET route for getting all of the donations for a specific user
+  app.get('/api/donation/user/:email', (req, res) => {
+    db.Donation.findAll({
+      where: {
+        UserEmail: req.params.email,
+      },
+    }).then((dbdonation) => {
+      res.json(dbdonation);
+    });
+  });
   // Get route for retrieving a single donation
   app.get('/api/donation/:id', (req, res) => {
     db.Donation.findOne({
