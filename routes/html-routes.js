@@ -93,7 +93,6 @@ module.exports = (express) => {
         as: 'product',
       }],
     }).then((allDonations) => {
-      console.log(allDonations);
       const donations = allDonations.map((item) => {
         const donationRecord = {};
         donationRecord.donor = item.dataValues.UserEmail;

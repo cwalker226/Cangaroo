@@ -2,7 +2,7 @@
  Food Bank inventory management system
 
 
-##Database seeds
+## Database seeds
 
 Seed the database with:
 
