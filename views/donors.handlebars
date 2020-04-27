@@ -43,16 +43,38 @@
       {{#unless donations}}
       <p>No donations yet - you can use the form above to make your first donation.</p>
       {{/unless}}
-      {{#if donations}}
-      <p>Here is a list of your past donations.</p>
+      {{#if unconfirmedDonations}}
+      <h4>Unconfirmed Donations</h4>
       <table>
         <tr>
+          <th>ID</th>
           <th>Date</th>
           <th>Product</th>
           <th>Quantity</th>
         </tr>
-      {{#each donations}}
+      {{#each unconfirmedDonations}}
         <tr>
+          <td>{{this.dataValues.id}}</td>
+          <td>{{this.dataValues.createdAt}}</td>
+          <td>{{this.dataValues.product.dataValues.name}} ({{this.dataValues.product.dataValues.servings}} servings {{this.dataValues.product.dataValues.nutrient_class}})</td>
+          <td>{{this.dataValues.quantity}}</td>
+        </tr>
+      {{/each}}
+      </table>
+      {{/if}}
+
+      {{#if confirmedDonations}}
+      <h4>Confirmed Donations</h4>
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Product</th>
+          <th>Quantity</th>
+        </tr>
+      {{#each confirmedDonations}}
+        <tr>
+          <td>{{this.dataValues.id}}</td>
           <td>{{this.dataValues.createdAt}}</td>
           <td>{{this.dataValues.product.dataValues.name}} ({{this.dataValues.product.dataValues.servings}} servings {{this.dataValues.product.dataValues.nutrient_class}})</td>
           <td>{{this.dataValues.quantity}}</td>

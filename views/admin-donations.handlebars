@@ -13,27 +13,66 @@
       {{/unless}}
       {{#if donations}}
       <p>Here is a record of all donations that have been received.</p>
+      {{#if unconfirmedDonations}}
+      <h4>Unconfirmed Donations</h4>
       <table>
         <tr>
+          <th>ID</th>
           <th>Donor</th>
           <th>Product ID</th>
           <th>Product Name</th>
           <th>Quantity</th>
           <th>Nutrient Class</th>
           <th>Total Servings</th>
+          <th>Confirmed</th>
         </tr>
-      {{#each donations}}
+      {{#each unconfirmedDonations}}
         <tr>
+          <td>{{this.id}}</td>
           <td>{{this.donor}}</td>
           <td>{{this.productId}}</td>
           <td>{{this.name}}</td>
           <td>{{this.quantity}}</td>
           <td>{{this.nutrient_class}}</td>
           <td>{{this.total_servings}}</td>
+          <td>
+            <button class="confirm" data-donationid="{{this.id}}" data-productid="{{this.productId}}" data-quantity="{{this.quantity}}">
+            Confirm Donation
+            </button>
+          </td>
         </tr>
       {{/each}}
       </table>
       {{/if}}
+      {{#if confirmedDonations}}
+      <h4>Confirmed Donations</h4>
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Donor</th>
+          <th>Product ID</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Nutrient Class</th>
+          <th>Total Servings</th>
+          <th>Confirmed</th>
+        </tr>
+      {{#each confirmedDonations}}
+        <tr>
+          <td>{{this.id}}</td>
+          <td>{{this.donor}}</td>
+          <td>{{this.productId}}</td>
+          <td>{{this.name}}</td>
+          <td>{{this.quantity}}</td>
+          <td>{{this.nutrient_class}}</td>
+          <td>{{this.total_servings}}</td>
+          <td>Yes</td>
+        </tr>
+      {{/each}}
+      </table>
+      {{/if}}
+      {{/if}}
     </div>
 </section>
 <script type="text/javascript" src="/js/members.js"></script>
+<script type="text/javascript" src="/js/admin-donations.js"></script>

@@ -54,6 +54,8 @@ module.exports = (app) => {
   });
   // PUT route for updating donations
   app.put('/api/donation', (req, res) => {
+    console.log(req.body.ProductId);
+    console.log(req.body.quantity);
     db.Donation.update(
       req.body,
       {

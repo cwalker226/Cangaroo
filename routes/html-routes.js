@@ -61,9 +61,17 @@ module.exports = (express) => {
         UserEmail: req.user.email,
       },
     }).then((donations) => {
+      const confirmedDonations = donations.filter((item) => item.confirmed);
+      const unconfirmedDonations = donations.filter((item) => !item.confirmed);
       const UserEmail = req.user.email;
       db.Product.findAll().then((products) => {
-        res.render('donors', { donations, products, UserEmail });
+        res.render('donors', {
+          donations,
+          confirmedDonations,
+          unconfirmedDonations,
+          products,
+          UserEmail,
+        });
       });
     });
   });
@@ -106,15 +114,25 @@ module.exports = (express) => {
       const userType = 'admin';
       const donations = allDonations.map((item) => {
         const donationRecord = {};
+        donationRecord.id = item.dataValues.id;
         donationRecord.donor = item.dataValues.UserEmail;
         donationRecord.productId = item.dataValues.product.id;
         donationRecord.name = item.dataValues.product.name;
         donationRecord.quantity = item.dataValues.quantity;
         donationRecord.nutrient_class = item.dataValues.product.nutrient_class;
         donationRecord.total_servings = item.dataValues.quantity * item.dataValues.product.servings;
+        donationRecord.confirmed = item.dataValues.confirmed;
         return donationRecord;
       });
-      res.render('admin-donations', { donations, userType });
+      const confirmedDonations = donations.filter((item) => item.confirmed);
+      const unconfirmedDonations = donations.filter((item) => !item.confirmed);
+
+      res.render('admin-donations', {
+        donations,
+        confirmedDonations,
+        unconfirmedDonations,
+        userType,
+      });
     });
   });
 

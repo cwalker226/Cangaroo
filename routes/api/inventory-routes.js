@@ -22,15 +22,17 @@ module.exports = (app) => {
   });
 
   // Get route for retrieving a single Inventory
-  app.get('/api/inventory/:id', (req, res) => {
+  app.get('/api/inventory/:ProductId', (req, res) => {
     // 2. Add a join here to include the Product who wrote the Inventory
     db.Inventory.findOne({
-      include: db.Product,
+      include: {
+        model: db.Product,
+        as: 'product',
+      },
       where: {
-        id: req.params.id,
+        ProductId: req.params.ProductId,
       },
     }).then((dbInventory) => {
-      console.log(dbInventory);
       res.json(dbInventory);
     });
   });
@@ -59,7 +61,7 @@ module.exports = (app) => {
       req.body,
       {
         where: {
-          id: req.body.id,
+          ProductId: req.body.ProductId,
         },
       },
     ).then((dbInventory) => {
