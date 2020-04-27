@@ -1,0 +1,66 @@
+<section class="section">
+    <div class="container">
+        <h1>Donor Portal</h1>
+        <h2>Welcome <span class="member-name"></span></h2>
+        <p>As a valued donor, we welcome your contributions.</p>
+
+        <hr>
+
+        <h3>New Donation</h3>
+        <p>Make a new donation using this form.</p>
+        <form class="donation">
+          <div class="field">
+            <label class="label">Product</label>
+            <div class="control">
+              <div class="select">
+                <select id="product-select">
+                  <option>Choose product to donate</option>
+                  {{#each products}}
+                  <option value="{{this.dataValues.id}}">{{this.dataValues.name}} ({{this.dataValues.servings}} servings {{this.dataValues.nutrient_class}})</option>
+                  {{/each}}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Quantity</label>
+            <div class="control">
+              <input class="input" id="quantity-input" type="text" placeholder="0">
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <button class="button is-link">Submit</button>
+            </div>
+          </div>
+          <input type="hidden" id="UserEmail" name="UserEmail" value="{{UserEmail}}">
+        </form>
+        
+        <hr>
+    </div>
+    <div class="container">
+      <h3>Donation History</h3>
+      {{#unless donations}}
+      <p>No donations yet - you can use the form above to make your first donation.</p>
+      {{/unless}}
+      {{#if donations}}
+      <p>Here is a list of your past donations.</p>
+      <table>
+        <tr>
+          <th>Date</th>
+          <th>Product</th>
+          <th>Quantity</th>
+        </tr>
+      {{#each donations}}
+        <tr>
+          <td>{{this.dataValues.createdAt}}</td>
+          <td>{{this.dataValues.product.dataValues.name}} ({{this.dataValues.product.dataValues.servings}} servings {{this.dataValues.product.dataValues.nutrient_class}})</td>
+          <td>{{this.dataValues.quantity}}</td>
+        </tr>
+      {{/each}}
+      </table>
+      {{/if}}
+    </div>
+</section>
+<script type="text/javascript" src="/js/members.js"></script>
+<script type="text/javascript" src="/js/donors.js"></script>

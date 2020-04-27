@@ -1,8 +1,11 @@
 // Requiring our custom middleware for checking if a user is logged in
 const isAuthenticated = require('../config/middleware/isAuthenticated');
-// Check if a user is a client
+
+// Middleware to check user type for authorization
+const isAdmin = require('../config/middleware/isAdmin');
 const isClient = require('../config/middleware/isClient');
 const isDonor = require('../config/middleware/isDonor');
+
 // Requiring our models
 const db = require('../models');
 
@@ -50,14 +53,19 @@ module.exports = (express) => {
     }).then((donations) => {
       const UserEmail = req.user.email;
       db.Product.findAll().then((products) => {
-        console.log(UserEmail);
-        // console.log(donations);
-        // console.log(products);
         res.render('donors', { donations, products, UserEmail });
       });
     });
-
-    // res.render('donors');
+  });
+  router.get('/admin/products', isAdmin, (req, res) => {
+    db.Product.findAll().then((products) => {
+      res.render('admin-products', { products });
+    });
+  });
+  router.get('/admin/inventory', isAdmin, (req, res) => {
+    db.Inventory.findAll().then((inventory) => {
+      res.render('admin-inventory', { inventory });
+    });
   });
 
   return router;
