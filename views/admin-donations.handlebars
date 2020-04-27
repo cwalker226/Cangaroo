@@ -1,0 +1,39 @@
+<section class="section">
+    <div class="container">
+        <h1>Donations Management</h1>
+        <h2>Welcome <span class="member-name"></span></h2>
+        <p>Here you can view the donation history for all products.</p>
+        <hr>
+    </div>
+
+    <div class="container">
+      <h3>Donation List</h3>
+      {{#unless donations}}
+      <p>No donations yet - you need donors first.</p>
+      {{/unless}}
+      {{#if donations}}
+      <p>Here is a record of all donations that have been received.</p>
+      <table>
+        <tr>
+          <th>Donor</th>
+          <th>Product ID</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Nutrient Class</th>
+          <th>Total Servings</th>
+        </tr>
+      {{#each donations}}
+        <tr>
+          <td>{{this.donor}}</td>
+          <td>{{this.productId}}</td>
+          <td>{{this.name}}</td>
+          <td>{{this.quantity}}</td>
+          <td>{{this.nutrient_class}}</td>
+          <td>{{this.total_servings}}</td>
+        </tr>
+      {{/each}}
+      </table>
+      {{/if}}
+    </div>
+</section>
+<script type="text/javascript" src="/js/members.js"></script>

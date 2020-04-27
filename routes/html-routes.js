@@ -86,7 +86,27 @@ module.exports = (express) => {
       res.render('admin-inventory', { inventory });
     });
   });
-
+  router.get('/admin/donations', isAdmin, (req, res) => {
+    db.Donation.findAll({
+      include: [{
+        model: db.Product,
+        as: 'product',
+      }],
+    }).then((allDonations) => {
+      console.log(allDonations);
+      const donations = allDonations.map((item) => {
+        const donationRecord = {};
+        donationRecord.donor = item.dataValues.UserEmail;
+        donationRecord.productId = item.dataValues.product.id;
+        donationRecord.name = item.dataValues.product.name;
+        donationRecord.quantity = item.dataValues.quantity;
+        donationRecord.nutrient_class = item.dataValues.product.nutrient_class;
+        donationRecord.total_servings = item.dataValues.quantity * item.dataValues.product.servings;
+        return donationRecord;
+      });
+      res.render('admin-donations', { donations });
+    });
+  });
 
   return router;
 };
