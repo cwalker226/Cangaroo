@@ -3,6 +3,8 @@ const isAuthenticated = require('../config/middleware/isAuthenticated');
 // Check if a user is a client
 const isClient = require('../config/middleware/isClient');
 const isDonor = require('../config/middleware/isDonor');
+// Requiring our models
+const db = require('../models');
 
 
 module.exports = (express) => {
@@ -13,7 +15,6 @@ module.exports = (express) => {
       res.redirect('/members');
     }
     res.render('signup');
-    // res.sendFile(path.join(__dirname, '../public/signup.html'));
   });
 
   router.get('/login', (req, res) => {
@@ -22,7 +23,6 @@ module.exports = (express) => {
       res.redirect('/members');
     }
     res.render('login');
-    // res.sendFile(path.join(__dirname, '../public/login.html'));
   });
 
   // Here we've add our isAuthenticated middleware to this route.
@@ -37,11 +37,18 @@ module.exports = (express) => {
   });
   router.get('/members/clients', isClient, (req, res) => {
     res.render('clients');
-    // res.sendFile(path.join(__dirname, '../public/clients.html'));
   });
   router.get('/members/donors', isDonor, (req, res) => {
-    res.render('donors');
-    // res.sendFile(path.join(__dirname, '../public/donors.html'));
+    db.Donation.findAll({
+      where: {
+        UserEmail: req.user.email,
+      },
+    }).then((donations) => {
+      console.log(donations);
+      res.render('donors', { donations });
+    });
+
+    // res.render('donors');
   });
 
   return router;

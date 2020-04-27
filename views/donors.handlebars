@@ -1,7 +1,30 @@
 <section class="section">
     <div class="container">
         <h2>Welcome <span class="member-name"></span></h2>
-        <p>As a valued donor, </p>
+        <p>As a valued donor, we welcome your contributions.</p>
+        <h3>New Donation</h3>
+        <p>Make a new donation using this form.</p>
+        <form>
+
+        </form>
+        <h3>Donation History</h3>
+        <p>Here is a list of your past donations.</p>
+    </div>
+    <div class="container">
+      <table>
+        <tr>
+          <th>Date</th>
+          <th>Product ID</th>
+          <th>Quantity</th>
+        </tr>
+      {{#each donations}}
+        <tr>
+          <td>Date: {{this.dataValues.createdAt}}</td>
+          <td>Product ID: {{this.dataValues.ProductId}}</td>
+          <td>Quantity: {{this.dataValues.quantity}}</td>
+        </tr>
+      {{/each}}
+      </table>
     </div>
 </section>
 <script type="text/javascript" src="/js/members.js"></script>
