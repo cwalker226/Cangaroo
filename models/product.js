@@ -24,10 +24,7 @@ module.exports = (sequelize, DataTypes) => {
   // Add ProductId to Donation model
   Product.associate = (models) => {
     Product.hasMany(models.Donation, {
-      as: 'ProductDonation',
-      foreignKey: {
-        allowNull: false,
-      },
+      as: 'donations',
     });
     // Add ProductId to Inventory model
     Product.hasMany(models.Inventory, {

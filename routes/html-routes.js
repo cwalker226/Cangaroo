@@ -40,12 +40,19 @@ module.exports = (express) => {
   });
   router.get('/members/donors', isDonor, (req, res) => {
     db.Donation.findAll({
+      include: [{
+        model: db.Product,
+        as: 'product',
+      }],
       where: {
         UserEmail: req.user.email,
       },
     }).then((donations) => {
-      console.log(donations);
-      res.render('donors', { donations });
+      db.Product.findAll().then((products) => {
+        console.log(donations);
+        // console.log(products);
+        res.render('donors', { donations, products });
+      });
     });
 
     // res.render('donors');

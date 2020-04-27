@@ -1,12 +1,31 @@
 <section class="section">
     <div class="container">
+        <h1>Donor Portal</h1>
         <h2>Welcome <span class="member-name"></span></h2>
         <p>As a valued donor, we welcome your contributions.</p>
+
+        <hr>
+
         <h3>New Donation</h3>
         <p>Make a new donation using this form.</p>
         <form>
-
+          <div class="field">
+            <label class="label">Product</label>
+            <div class="control">
+              <div class="select">
+                <select>
+                  <option>Choose product to donate</option>
+                  {{#each products}}
+                  <option>{{this.dataValues.name}} ({{this.dataValues.servings}} servings {{this.dataValues.nutrient_class}})</option>
+                  {{/each}}
+                </select>
+              </div>
+            </div>
+          </div>
         </form>
+        
+        <hr>
+        
         <h3>Donation History</h3>
         <p>Here is a list of your past donations.</p>
     </div>
@@ -14,14 +33,14 @@
       <table>
         <tr>
           <th>Date</th>
-          <th>Product ID</th>
+          <th>Product</th>
           <th>Quantity</th>
         </tr>
       {{#each donations}}
         <tr>
-          <td>Date: {{this.dataValues.createdAt}}</td>
-          <td>Product ID: {{this.dataValues.ProductId}}</td>
-          <td>Quantity: {{this.dataValues.quantity}}</td>
+          <td>{{this.dataValues.createdAt}}</td>
+          <td>{{this.dataValues.product.dataValues.name}} ({{this.dataValues.product.dataValues.servings}} servings {{this.dataValues.product.dataValues.nutrient_class}})</td>
+          <td>{{this.dataValues.quantity}}</td>
         </tr>
       {{/each}}
       </table>
