@@ -14,8 +14,14 @@ app.use(express.static('public'));
 
 // Set Handlebars.
 const exphbs = require('express-handlebars');
+const hbshelpers = require('handlebars-helpers');
 
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+const multihelpers = hbshelpers();
+
+app.engine('handlebars', exphbs({
+  helpers: multihelpers,
+  defaultLayout: 'main',
+}));
 app.set('view engine', 'handlebars');
 
 // Requiring passport as we've configured it

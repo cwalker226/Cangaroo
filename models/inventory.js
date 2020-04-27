@@ -7,6 +7,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
+  Inventory.associate = (models) => {
+    Inventory.belongsTo(models.Product, {
+      foreignKey: 'ProductId',
+      as: 'product',
+    });
+  };
 
   return Inventory;
 };

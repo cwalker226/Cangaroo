@@ -7,6 +7,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
+  Assist.associate = (models) => {
+    Assist.belongsTo(models.Product, {
+      foreignKey: 'ProductId',
+      as: 'product',
+    });
+  };
 
   return Assist;
 };

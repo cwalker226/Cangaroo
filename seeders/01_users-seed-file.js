@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 module.exports = {
   up(queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Users', [{
-      email: 'admin',
+      email: 'a1@a.com',
       user_type: 'admin',
       createdAt: new Date(),
       updatedAt: new Date(),
