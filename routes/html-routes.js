@@ -66,10 +66,16 @@ module.exports = (express) => {
     });
   });
   router.get('/admin/inventory', isAdmin, (req, res) => {
-    db.Inventory.findAll().then((inventory) => {
+    db.Inventory.findAll({
+      include: [{
+        model: db.Product,
+        as: 'product',
+      }],
+    }).then((inventory) => {
       res.render('admin-inventory', { inventory });
     });
   });
+
 
   return router;
 };

@@ -12,7 +12,7 @@ $(document).ready(() => {
   // Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors
   function newProduct(name, servings, nutrientClass) {
-    $.post('/api/product', {
+    $.post('/api/products', {
       name,
       servings,
       nutrient_class: nutrientClass,
@@ -39,8 +39,9 @@ $(document).ready(() => {
       return;
     }
     // If we have a product and quantity, run the newDonation function
-    newProduct(productData.ProductId, productData.quantity, productData.UserEmail);
-    nameInput.val('Choose product to donate');
+    newProduct(productData.name, productData.servings, productData.nutrient_class);
+    nameInput.val('');
     servingsInput.val('');
+    nutrientClassSelect.val('Choose nutrient class');
   });
 });
