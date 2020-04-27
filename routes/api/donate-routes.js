@@ -38,6 +38,7 @@ module.exports = (app) => {
   });
   // Post route for saving a new donation
   app.post('/api/donation', (req, res) => {
+    console.log(req.body);
     db.Donation.create(req.body).then((dbdonation) => {
       res.json(dbdonation);
     });

@@ -48,10 +48,12 @@ module.exports = (express) => {
         UserEmail: req.user.email,
       },
     }).then((donations) => {
+      const UserEmail = req.user.email;
       db.Product.findAll().then((products) => {
-        console.log(donations);
+        console.log(UserEmail);
+        // console.log(donations);
         // console.log(products);
-        res.render('donors', { donations, products });
+        res.render('donors', { donations, products, UserEmail });
       });
     });
 
