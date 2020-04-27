@@ -36,6 +36,8 @@ module.exports = (express) => {
       res.redirect('/members/clients');
     } else if (req.user.user_type === 'donor') {
       res.redirect('/members/donors');
+    } else if (req.user.user_type === 'admin') {
+      res.redirect('/admin/products');
     }
   });
   router.get('/members/clients', isClient, (req, res) => {
@@ -59,7 +61,8 @@ module.exports = (express) => {
   });
   router.get('/admin/products', isAdmin, (req, res) => {
     db.Product.findAll().then((products) => {
-      res.render('admin-products', { products });
+      const nutrientClasses = ['carbohydrates', 'fats', 'fiber', 'minerals', 'protein', 'vitamins', 'water'];
+      res.render('admin-products', { products, nutrientClasses });
     });
   });
   router.get('/admin/inventory', isAdmin, (req, res) => {
