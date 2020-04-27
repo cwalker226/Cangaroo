@@ -17,7 +17,7 @@ module.exports = (express) => {
     if (req.user) {
       res.redirect('/members');
     }
-    res.render('signup');
+    res.render('login');
   });
 
   router.get('/login', (req, res) => {
@@ -26,6 +26,14 @@ module.exports = (express) => {
       res.redirect('/members');
     }
     res.render('login');
+  });
+
+  router.get('/signup', (req, res) => {
+    // If the user already has an account send them to the members page
+    if (req.user) {
+      res.redirect('/members');
+    }
+    res.render('signup');
   });
 
   // Here we've add our isAuthenticated middleware to this route.
@@ -63,8 +71,9 @@ module.exports = (express) => {
   /* Admin page routes */
   router.get('/admin/products', isAdmin, (req, res) => {
     db.Product.findAll().then((products) => {
+      const userType = 'admin';
       const nutrientClasses = ['carbohydrates', 'fats', 'fiber', 'minerals', 'protein', 'vitamins', 'water'];
-      res.render('admin-products', { products, nutrientClasses });
+      res.render('admin-products', { products, nutrientClasses, userType });
     });
   });
   router.get('/admin/inventory', isAdmin, (req, res) => {
@@ -74,6 +83,7 @@ module.exports = (express) => {
         as: 'product',
       }],
     }).then((allInventory) => {
+      const userType = 'admin';
       const inventory = allInventory.map((item) => {
         const inventoryItem = {};
         inventoryItem.productId = item.dataValues.product.id;
@@ -83,7 +93,7 @@ module.exports = (express) => {
         inventoryItem.total_servings = item.dataValues.quantity * item.dataValues.product.servings;
         return inventoryItem;
       });
-      res.render('admin-inventory', { inventory });
+      res.render('admin-inventory', { inventory, userType });
     });
   });
   router.get('/admin/donations', isAdmin, (req, res) => {
@@ -93,6 +103,7 @@ module.exports = (express) => {
         as: 'product',
       }],
     }).then((allDonations) => {
+      const userType = 'admin';
       const donations = allDonations.map((item) => {
         const donationRecord = {};
         donationRecord.donor = item.dataValues.UserEmail;
@@ -103,7 +114,7 @@ module.exports = (express) => {
         donationRecord.total_servings = item.dataValues.quantity * item.dataValues.product.servings;
         return donationRecord;
       });
-      res.render('admin-donations', { donations });
+      res.render('admin-donations', { donations, userType });
     });
   });
 
