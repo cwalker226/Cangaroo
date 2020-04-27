@@ -1,8 +1,8 @@
 <section class="section">
     <div class="container">
-        <h1>Donor Portal</h1>
+        <h1>Inventory Management</h1>
         <h2>Welcome <span class="member-name"></span></h2>
-        <p>As a valued donor, we welcome your contributions.</p>
+        <p>Here you can view the inventory held for all products.</p>
         <hr>
     </div>
 
@@ -15,17 +15,19 @@
       <p>Here is a list of inventory currently held.</p>
       <table>
         <tr>
-          <th>Product</th>
+          <th>Product ID</th>
+          <th>Product Name</th>
           <th>Quantity</th>
           <th>Nutrient Class</th>
           <th>Total Servings</th>
         </tr>
       {{#each inventory}}
         <tr>
-          <td>{{this.dataValues.product.dataValues.name}}</td>
-          <td>{{this.dataValues.quantity}}</td>
-          <td>{{this.dataValues.product.dataValues.nutrient_class}}</td>
-          <td>{{this.dataValues.product.dataValues.servings * this.dataValues.quantity}}</td>
+          <td>{{this.productId}}</td>
+          <td>{{this.name}}</td>
+          <td>{{this.quantity}}</td>
+          <td>{{this.nutrient_class}}</td>
+          <td>{{this.total_servings}}</td>
         </tr>
       {{/each}}
       </table>

@@ -59,6 +59,8 @@ module.exports = (express) => {
       });
     });
   });
+
+  /* Admin page routes */
   router.get('/admin/products', isAdmin, (req, res) => {
     db.Product.findAll().then((products) => {
       const nutrientClasses = ['carbohydrates', 'fats', 'fiber', 'minerals', 'protein', 'vitamins', 'water'];
@@ -71,7 +73,16 @@ module.exports = (express) => {
         model: db.Product,
         as: 'product',
       }],
-    }).then((inventory) => {
+    }).then((allInventory) => {
+      const inventory = allInventory.map((item) => {
+        const inventoryItem = {};
+        inventoryItem.productId = item.dataValues.product.id;
+        inventoryItem.name = item.dataValues.product.name;
+        inventoryItem.quantity = item.dataValues.quantity;
+        inventoryItem.nutrient_class = item.dataValues.product.nutrient_class;
+        inventoryItem.total_servings = item.dataValues.quantity * item.dataValues.product.servings;
+        return inventoryItem;
+      });
       res.render('admin-inventory', { inventory });
     });
   });
