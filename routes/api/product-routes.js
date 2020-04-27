@@ -25,7 +25,6 @@ module.exports = (app) => {
         id: req.params.id,
       },
     }).then((dbProduct) => {
-      console.log(dbProduct);
       res.json(dbProduct);
     });
   });
@@ -33,7 +32,15 @@ module.exports = (app) => {
   // POST route for saving a new product
   app.post('/api/products', (req, res) => {
     db.Product.create(req.body).then((dbProduct) => {
-      res.json(dbProduct);
+      console.log(`New product ID: ${dbProduct.id}`);
+      const ProductId = dbProduct.id;
+      /* We need a matching inventory record */
+      db.Inventory.create({
+        ProductId,
+        quantity: 0,
+      }).then(() => {
+        res.json(dbProduct);
+      });
     });
   });
 
