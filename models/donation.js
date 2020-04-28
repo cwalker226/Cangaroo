@@ -6,6 +6,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    confirmed: {
+      type: DataTypes.BOOLEAN,
+      default: false,
+    },
   });
   Donation.associate = (models) => {
     Donation.belongsTo(models.Product, {
