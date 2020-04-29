@@ -36,6 +36,7 @@ $(document).ready(() => {
   // When the submit button is clicked, get the ID of the donation from the button
   $('button.confirm').on('click', function (event) {
     event.preventDefault();
+    console.log($(this));
     const id = $(this).data('donationid');
     const ProductId = $(this).data('productid');
     const quantity = $(this).data('quantity');

@@ -3,7 +3,7 @@
 module.exports = {
   up(queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Donations', [{
-      ProductId: 1,
+      ProductId: 8,
       UserEmail: 'd1@d.com',
       quantity: 2,
       confirmed: true,
@@ -11,7 +11,7 @@ module.exports = {
       updatedAt: new Date(),
     },
     {
-      ProductId: 1,
+      ProductId: 8,
       UserEmail: 'd1@d.com',
       quantity: 3,
       confirmed: true,
