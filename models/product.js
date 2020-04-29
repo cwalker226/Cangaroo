@@ -30,9 +30,9 @@ module.exports = (sequelize, DataTypes) => {
     Product.hasMany(models.Inventory, {
       as: 'inventory',
     });
-    // Add ProductId to Assist model
-    Product.hasMany(models.Assist, {
-      as: 'assist',
+    // Add ProductId to Basket model
+    Product.hasMany(models.Basket, {
+      as: 'basket',
     });
   };
 
