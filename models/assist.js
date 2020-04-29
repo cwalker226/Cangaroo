@@ -1,11 +1,6 @@
 // Creating our Assist model
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
   const Assist = sequelize.define('Assist', {
-    // Quantity provided
-    quantity: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
   });
 
   Assist.associate = (models) => {
