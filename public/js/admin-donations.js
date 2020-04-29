@@ -51,4 +51,13 @@ $(document).ready(() => {
     // If we have a product and quantity, run the confirmDonation function
     confirmDonation(donationData.id, donationData.ProductId, donationData.quantity);
   });
+
+  $('button.reject').on('click', function (event) {
+    event.preventDefault();
+    const id = $(this).data('donationid');
+    $.ajax({
+      method: 'DELETE',
+      url: `/api/donation/${id}`,
+    }).then(() => window.location.reload());
+  });
 });
