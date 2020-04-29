@@ -36,9 +36,12 @@
           <td>{{this.nutrient_class}}</td>
           <td>{{this.total_servings}}</td>
           <td>
-            <button class="confirm" data-donationid="{{this.id}}" data-productid="{{this.productId}}" data-quantity="{{this.quantity}}">
+            <button class="confirm button is-success is-small" data-donationid="{{this.id}}" data-productid="{{this.productId}}" data-quantity="{{this.quantity}}">
             Confirm Donation
             </button>
+          </td>
+          <td>
+            <button class="reject button is-danger is-small" data-donationid="{{this.id}}">Reject Donation</button>
           </td>
         </tr>
       {{/each}}
