@@ -7,10 +7,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
+  // Add AssistId to Donation model
   Assist.associate = (models) => {
-    Assist.belongsTo(models.Product, {
-      foreignKey: 'ProductId',
-      as: 'product',
+    // Add AssistId to Basket model
+    Assist.hasMany(models.Basket, {
+      as: 'basket',
     });
   };
 
