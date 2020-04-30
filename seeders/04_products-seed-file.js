@@ -2,9 +2,10 @@
 
 module.exports = {
   up(queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('Inventories', [{
-      ProductId: 1,
-      quantity: 4,
+    return queryInterface.bulkInsert('Products', [{
+      name: 'hamburger',
+      nutrient_class: 'protein',
+      servings: 8,
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -12,8 +13,8 @@ module.exports = {
   },
 
   down(queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('Inventories', [{
-      ProductId: 1,
+    return queryInterface.bulkDelete('Products', [{
+      id: 8,
     },
     ]);
   },
