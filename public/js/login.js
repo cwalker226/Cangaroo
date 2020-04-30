@@ -11,6 +11,11 @@ $(document).ready(() => {
     $('#alert').fadeIn(500);
   };
 
+  /* Close the login error window when the 'x' is clicked */
+  $('.delete').on('click', function () {
+    $(this).parent('div').fadeOut();
+  });
+
   // loginUser does a post to our 'api/login' route
   // If successful, redirects us to the members page
   function loginUser(email, password) {
