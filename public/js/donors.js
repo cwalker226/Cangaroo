@@ -35,6 +35,10 @@ $(document).ready(() => {
       UserEmail: emailInput.val(),
     };
 
+    /* Donations can't be negative quantity */
+    if (Math.sign(donationData.quantity) === -1) {
+      return;
+    }
     if (!donationData.ProductId || !donationData.quantity || !donationData.UserEmail) {
       return;
     }
