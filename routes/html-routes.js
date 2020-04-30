@@ -9,15 +9,14 @@ const isDonor = require('../config/middleware/isDonor');
 // Requiring our models
 const db = require('../models');
 
-
 module.exports = (express) => {
   const router = express.Router();
   router.get('/', (req, res) => {
     // If the user already has an account send them to the members page
     if (req.user) {
-      res.redirect('/members');
+      return res.redirect('/members');
     }
-    res.render('login');
+    return res.render('login');
   });
 
   router.get('/login', (req, res) => {
