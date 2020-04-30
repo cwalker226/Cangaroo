@@ -50,7 +50,7 @@ module.exports = (app) => {
             res.status(401).json(err);
           });
       } else {
-        res.status(401).json('There was a problem with this email address. Please try a different address.');
+        res.status(401).json('There was a problem verifying this email address. Please try a different address.');
       }
     });
   });
