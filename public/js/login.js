@@ -6,6 +6,11 @@ $(document).ready(() => {
   const emailInput = $('input#email-input');
   const passwordInput = $('input#password-input');
 
+  const handleLoginErr = () => {
+    $('#alert .msg').text("We couldn't log you in with that info. Please try again.");
+    $('#alert').fadeIn(500);
+  };
+
   // loginUser does a post to our 'api/login' route
   // If successful, redirects us to the members page
   function loginUser(email, password) {
@@ -17,9 +22,7 @@ $(document).ready(() => {
         window.location.replace('/members');
         // If there's an error, log the error
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(handleLoginErr);
   }
 
   // When the form is submitted, we validate there's an email and password entered
