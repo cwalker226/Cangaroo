@@ -41,7 +41,7 @@
             </button>
           </td>
           <td>
-            <button class="reject button is-danger is-small" data-donationid="{{this.id}}">Reject Donation</button>
+            <button onclick="location.href='mailto:{{this.donor}}?subject=Donation Rejected&body=Sorry, your donation of {{this.name}} has been rejected.'" class="reject button is-danger is-small" data-donationid="{{this.id}}" data-email="{{this.donor}}">Reject Donation</button>
           </td>
         </tr>
       {{/each}}
