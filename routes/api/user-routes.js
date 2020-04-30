@@ -1,3 +1,20 @@
+const { VerifaliaRestClient } = require('verifalia');
+
+const verifalia = new VerifaliaRestClient({
+  username: process.env.VERIFALIA_USER,
+  password: process.env.VERIFALIA_PASS,
+});
+
+const verifyEmail = async (emailAddress) => {
+  const validation = await verifalia
+    .emailValidations
+    .submit(emailAddress, true);
+
+  const entry = validation.entries[0];
+
+  return entry.status;
+};
+
 // Requiring our models and passport as we've configured it
 const db = require('../../models');
 const passport = require('../../config/passport');
@@ -18,17 +35,23 @@ module.exports = (app) => {
   // thanks to how we configured our Sequelize User Model. If the user is created successfully,
   // proceed to log the user in, otherwise send back an error
   app.post('/api/signup', (req, res) => {
-    db.User.create({
-      email: req.body.email,
-      password: req.body.password,
-      user_type: req.body.userType,
-    })
-      .then(() => {
-        res.redirect(307, '/api/login');
-      })
-      .catch((err) => {
-        res.status(401).json(err);
-      });
+    verifyEmail(req.body.email).then((status) => {
+      if (status === 'Success') {
+        db.User.create({
+          email: req.body.email,
+          password: req.body.password,
+          user_type: req.body.userType,
+        })
+          .then(() => {
+            res.redirect(307, '/api/login');
+          })
+          .catch((err) => {
+            res.status(401).json(err);
+          });
+      } else {
+        res.status(401).json('There was a problem verifying this email address. Please try a different address.');
+      }
+    });
   });
 
   // Route for logging user out

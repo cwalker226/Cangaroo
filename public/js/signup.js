@@ -4,7 +4,8 @@ $(document).ready(() => {
   // Getting references to our form and input
   const signUpForm = $('form.signup');
 
-  function handleLoginErr(err) {
+  function handleSignupErr(err) {
+    $('.overlay').hide();
     $('#alert .msg').text(err.responseJSON);
     $('#alert').fadeIn(500);
   }
@@ -12,6 +13,8 @@ $(document).ready(() => {
   // Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors
   function signUpUser(email, password, userType) {
+    $('.overlay').fadeIn(500);
+    /* call the signup api */
     $.post('/api/signup', {
       email,
       password,
@@ -19,7 +22,7 @@ $(document).ready(() => {
     }).then(() => {
       window.location.replace('/members');
       // If there's an error, handle it by throwing up a bootstrap alert
-    }).catch(handleLoginErr);
+    }).catch(handleSignupErr);
   }
 
   // When the signup button is clicked, we validate the email and password are not blank
