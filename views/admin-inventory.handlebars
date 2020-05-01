@@ -13,15 +13,17 @@
       {{/unless}}
       {{#if inventory}}
       <p>Here is a list of inventory currently held.</p>
-      <table>
-        <tr>
-          <th>Product ID</th>
-          <th>Product Name</th>
-          <th>Quantity</th>
-          <th>Nutrient Class</th>
-          <th>Total Servings</th>
-        </tr>
-      {{#each inventory}}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Nutrient Class</th>
+            <th>Total Servings</th>
+          </tr>
+        </thead>
+        {{#each inventory}}
         <tr>
           <td>{{this.productId}}</td>
           <td>{{this.name}}</td>
@@ -29,7 +31,7 @@
           <td>{{this.nutrient_class}}</td>
           <td>{{this.total_servings}}</td>
         </tr>
-      {{/each}}
+        {{/each}}
       </table>
       {{/if}}
     </div>

@@ -50,21 +50,23 @@
       {{/unless}}
       {{#if products}}
       <p>Here is a list of all products which are currently in the system.</p>
-      <table>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Servings</th>
-          <th>Nutrient Class</th>
-        </tr>
-      {{#each products}}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Servings</th>
+            <th>Nutrient Class</th>
+          </tr>
+        </thead>
+        {{#each products}}
         <tr>
           <td>{{this.dataValues.id}}</td>
           <td>{{this.dataValues.name}}</td>
           <td>{{this.dataValues.servings}}</td>
           <td>{{this.dataValues.nutrient_class}}</td>
         </tr>
-      {{/each}}
+        {{/each}}
       </table>
       {{/if}}
     </div>
