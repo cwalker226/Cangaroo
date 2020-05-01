@@ -1,42 +1,68 @@
 <section class="section">
     <div class="container">
-        <h1>Product Management</h1>
-        <h2>Welcome <span class="member-name"></span></h2>
+        <h1 class="title is-1">Product Management</h1>
+        <h2 class="title is-2">Welcome <span class="member-name subtitle is-4"></span></h2>
         <p>Add and view products here.</p>
 
         <hr>
 
-        <h3>New Product</h3>
+        <h3 class="title is-3">New Product</h3>
         <p>Add a new product using this form.</p>
+        <br>
         <form class="product">
-          <div class="field">
-            <label class="label">Name</label>
-            <div class="control">
-              <input class="input" id="name-input" type="text" placeholder="Enter product name">
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Name</label>
             </div>
-          </div>
-          <div class="field">
-            <label class="label">Servings</label>
-            <div class="control">
-              <input class="input" id="servings-input" type="text" placeholder="0">
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Nutrient Class</label>
-            <div class="control">
-              <div class="select">
-                <select id="nutrient_class-select">
-                  <option>Choose nutrient class</option>
-                  {{#each nutrientClasses}}
-                  <option value="{{this}}">{{this}}</option>
-                  {{/each}}
-                </select>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input class="input form-inputTxt" id="name-input" type="text" placeholder="Enter product name">
+                </div>
               </div>
             </div>
           </div>
-          <div class="field">
-            <div class="control">
-              <button class="button is-link">Submit</button>
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Servings</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input class="input form-numStep" id="servings-input" type="number" placeholder="1" min="1">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Nutrient Class</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <div class="select">
+                    <select id="nutrient_class-select">
+                      <option>Choose nutrient class</option>
+                      {{#each nutrientClasses}}
+                      <option value="{{this}}">{{this}}</option>
+                      {{/each}}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <button class="button is-link">Submit</button>
+                </div>
+              </div>
             </div>
           </div>
         </form>
@@ -44,13 +70,13 @@
         <hr>
     </div>
     <div class="container">
-      <h3>Product List</h3>
+      <h3 class="title is-3">Product List</h3>
       {{#unless products}}
       <p>No products yet - you can use the form above to add products.</p>
       {{/unless}}
       {{#if products}}
       <p>Here is a list of all products which are currently in the system.</p>
-      <table class="table">
+      <table class="table is-striped">
         <thead>
           <tr>
             <th>ID</th>

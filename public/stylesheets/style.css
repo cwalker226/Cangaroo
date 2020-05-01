@@ -33,3 +33,11 @@ form.login {
   width: 66vw;
   left: 17vw;
 }
+
+.form-inputTxt {
+  width: 45%;
+}
+
+.form-numStep {
+  width: 8%;
+}
