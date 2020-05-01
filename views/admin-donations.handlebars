@@ -15,18 +15,20 @@
       <p>Here is a record of all donations that have been received.</p>
       {{#if unconfirmedDonations}}
       <h4>Unconfirmed Donations</h4>
-      <table>
-        <tr>
-          <th>ID</th>
-          <th>Donor</th>
-          <th>Product ID</th>
-          <th>Product Name</th>
-          <th>Quantity</th>
-          <th>Nutrient Class</th>
-          <th>Total Servings</th>
-          <th>Confirmed</th>
-        </tr>
-      {{#each unconfirmedDonations}}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Donor</th>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Nutrient Class</th>
+            <th>Total Servings</th>
+            <th>Confirmed</th>
+          </tr>
+        </thead>
+        {{#each unconfirmedDonations}}
         <tr>
           <td>{{this.id}}</td>
           <td>{{this.donor}}</td>
@@ -44,23 +46,25 @@
             <button onclick="location.href='mailto:{{this.donor}}?subject=Donation Rejected&body=Sorry, your donation of {{this.name}} has been rejected.'" class="reject button is-danger is-small" data-donationid="{{this.id}}" data-email="{{this.donor}}">Reject Donation</button>
           </td>
         </tr>
-      {{/each}}
+        {{/each}}
       </table>
       {{/if}}
       {{#if confirmedDonations}}
       <h4>Confirmed Donations</h4>
-      <table>
-        <tr>
-          <th>ID</th>
-          <th>Donor</th>
-          <th>Product ID</th>
-          <th>Product Name</th>
-          <th>Quantity</th>
-          <th>Nutrient Class</th>
-          <th>Total Servings</th>
-          <th>Confirmed</th>
-        </tr>
-      {{#each confirmedDonations}}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Donor</th>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Nutrient Class</th>
+            <th>Total Servings</th>
+            <th>Confirmed</th>
+          </tr>
+        </thead>
+        {{#each confirmedDonations}}
         <tr>
           <td>{{this.id}}</td>
           <td>{{this.donor}}</td>
@@ -71,7 +75,7 @@
           <td>{{this.total_servings}}</td>
           <td>Yes</td>
         </tr>
-      {{/each}}
+        {{/each}}
       </table>
       {{/if}}
       {{/if}}
