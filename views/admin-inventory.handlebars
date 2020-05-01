@@ -1,19 +1,19 @@
 <section class="section">
     <div class="container">
-        <h1>Inventory Management</h1>
-        <h2>Welcome <span class="member-name"></span></h2>
+        <h1 class="title is-1">Inventory Management</h1>
+        <h2 class="title is-2">Welcome <span class="member-name subtitle is-4"></span></h2>
         <p>Here you can view the inventory held for all products.</p>
         <hr>
     </div>
 
     <div class="container">
-      <h3>Inventory List</h3>
+      <h3 class="title is-3">Inventory List</h3>
       {{#unless inventory}}
       <p>No inventory yet - you need donations first.</p>
       {{/unless}}
       {{#if inventory}}
       <p>Here is a list of inventory currently held.</p>
-      <table class="table">
+      <table class="table is-striped">
         <thead>
           <tr>
             <th>Product ID</th>
