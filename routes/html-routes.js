@@ -53,7 +53,8 @@ module.exports = (express) => {
         UserEmail: req.user.email,
       },
     }).then((assistance) => {
-      res.render('clients', { assistance });
+      const UserEmail = req.user.email;
+      res.render('clients', { assistance, UserEmail });
     });
   });
   router.get('/members/donors', isDonor, (req, res) => {

@@ -9,20 +9,21 @@
         <h3 class="title is-3">New Basket</h3>
         <p>Request a new basket using this form.</p>
         <br>
-        <form class="baskets">
+        <form class="baskets" id="basket-form">
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label">Number of Servings</label>
+                    <label class="label">Number in Family</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
                         <div class="control is-expanded">
-                            <input class="input form-numStep" id="serving-input" type="number" placeholder="1" min="1">
-                            <button class="basket button">Request Basket</button>
+                            <input class="input form-numStep" id="size-input" type="number" placeholder="1" min="1">
+                            <button class="basket button" id='request-button'>Request Basket</button>
                         </div>
                     </div>
                 </div>
             </div>
+            <input type="hidden" id="UserEmail" name="UserEmail" value="{{UserEmail}}">
         </form>
     </div>
     <hr>
@@ -51,4 +52,4 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/js/members.js"></script>
+<script type="text/javascript" src="/js/clients.js"></script>
