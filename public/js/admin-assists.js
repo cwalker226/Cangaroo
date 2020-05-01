@@ -34,15 +34,19 @@ $(document).ready(() => {
   $('button.confirm').on('click', function (event) {
     event.preventDefault();
     const id = $(this).data('assistid');
+    const nutrientClass = $(this).data('nutrientclass');
+    const size = $(this).data('size');
     const assistData = {
       id,
+      nutrientClass,
+      size,
     };
 
-    if (!assistData.id) {
+    if (!assistData.id || !assistData.nutrientClass || !assistData.size) {
       console.log('no id, returning instead of calling confirmAssist');
       return;
     }
     // If we have a product and quantity, run the confirmassist function
-    confirmAssist(assistData.id);
+    confirmAssist(assistData.id, assistData.nutrientClass, assistData.size);
   });
 });

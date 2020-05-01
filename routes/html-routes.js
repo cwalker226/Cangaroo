@@ -51,6 +51,7 @@ module.exports = (express) => {
     db.Assist.findAll({
       where: {
         UserEmail: req.user.email,
+        confirmed: true,
       },
     }).then((assistance) => {
       const UserEmail = req.user.email;
@@ -152,19 +153,20 @@ module.exports = (express) => {
         as: 'basket',
       }],
     }).then((allAssists) => {
+      console.log(`allAssists = ${allAssists}`);
       const userType = 'admin';
       const assists = allAssists.map((item) => {
         const assistPeople = {};
         assistPeople.assistId = item.dataValues.id;
         assistPeople.assistUserEmail = item.dataValues.UserEmail;
         assistPeople.createdAt = item.dataValues.createdAt;
-        assistPeople.confirmed = item.dataValues.confirmed ? 'yes' : 'no';
+        assistPeople.confirmed = item.dataValues.confirmed;
         return assistPeople;
       });
 
-      const confirmedAssists = assists.filter((item) => item.confirmed === 'yes');
-      const unconfirmedAssists = assists.filter((item) => item.confirmed === 'no');
-
+      const confirmedAssists = assists.filter((item) => item.confirmed);
+      const unconfirmedAssists = assists.filter((item) => !item.confirmed);
+      console.log(unconfirmedAssists);
       res.render('admin-assists', {
         assists,
         confirmedAssists,
