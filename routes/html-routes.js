@@ -48,7 +48,13 @@ module.exports = (express) => {
     }
   });
   router.get('/members/clients', isClient, (req, res) => {
-    res.render('clients');
+    db.Assist.findAll({
+      where: {
+        UserEmail: req.user.email,
+      },
+    }).then((assistance) => {
+      res.render('clients', { assistance });
+    });
   });
   router.get('/members/donors', isDonor, (req, res) => {
     db.Donation.findAll({

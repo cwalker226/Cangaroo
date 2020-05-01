@@ -1,25 +1,47 @@
 <div class="section">
-    <div class="columns">
-        <div class="column">
-            <h2>Welcome <span class="member-name"></span></h2>
-            <p>As a valued client, we are here to help you.</p>
+    <div class="container">
+        <h2>Welcome <span class="member-name"></span></h2>
+        <p>As a valued client, we are here to help you.</p>
 
-            <hr>
+        <hr>
 
-            <form class="baskets">
-                <div class="field">
-                    <label class="label">Number of Servings</label>
-                    <div class="control">
-                        <input class="input" id="serving-input" type="number" placeholder="1" style="width: 5%;" min="1">
-                    </div>
+        <form class="baskets">
+            <div class="field">
+                <label class="label">Number of Servings</label>
+                <div class="control">
+                    <input class="input" id="serving-input" type="number" placeholder="1" style="width: 5%;" min="1">
                 </div>
-                <div class="field">
-                    <div class="control">
-                        <button class="basket button">Request Basket</button>
-                    </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <button class="basket button">Request Basket</button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
+    </div>
+    <hr>
+    <div class="container">
+      <p class="title">Assistance History</p>
+      {{#unless assistance}}
+      <p>No assistance has been received yet - you can use the form above to make your first basket.</p>
+      {{/unless}}
+      {{#if assistance}}
+      <p class="subtitle">Baskets Received</p>
+      <table class="table">
+          <thead>
+            <tr>
+                <th>ID</th>
+                <th>Creation Date</th>
+            </tr>
+          </thead>
+        {{#each assistance}}
+        <tr>
+          <td>{{this.dataValues.id}}</td>
+          <td>{{this.dataValues.createdAt}}</td>
+        </tr>
+        {{/each}}
+      </table>
+      {{/if}}
     </div>
 </div>
 
