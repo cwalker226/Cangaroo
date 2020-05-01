@@ -157,10 +157,11 @@ module.exports = (express) => {
       const userType = 'admin';
       const assists = allAssists.map((item) => {
         const assistPeople = {};
-        assistPeople.assistId = item.dataValues.id;
-        assistPeople.assistUserEmail = item.dataValues.UserEmail;
+        assistPeople.id = item.dataValues.id;
+        assistPeople.UserEmail = item.dataValues.UserEmail;
         assistPeople.createdAt = item.dataValues.createdAt;
         assistPeople.confirmed = item.dataValues.confirmed;
+        assistPeople.size = item.dataValues.size;
         return assistPeople;
       });
 

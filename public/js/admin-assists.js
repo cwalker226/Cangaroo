@@ -30,23 +30,22 @@ $(document).ready(() => {
     }).catch(handleAssistErr);
   }
 
-  // When the submit button is clicked, get the ID of the assist from the button
+  // When the Confirm Request button is clicked, get the ID of the assist from the button
   $('button.confirm').on('click', function (event) {
     event.preventDefault();
     const id = $(this).data('assistid');
-    const nutrientClass = $(this).data('nutrientclass');
-    const size = $(this).data('size');
+    console.log(id);
+    const size = $(this).data('assistsize');
     const assistData = {
       id,
-      nutrientClass,
       size,
     };
 
-    if (!assistData.id || !assistData.nutrientClass || !assistData.size) {
-      console.log('no id, returning instead of calling confirmAssist');
+    if (!assistData.id || !assistData.size) {
+      console.log(`no id ${assistData.id} or size ${assistData.size}, returning instead of calling confirmAssist`);
       return;
     }
-    // If we have a product and quantity, run the confirmassist function
-    confirmAssist(assistData.id, assistData.nutrientClass, assistData.size);
+    // If we have a product and quantity, run the confirmAssist function
+    confirmAssist(assistData.id, assistData.size);
   });
 });

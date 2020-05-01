@@ -14,16 +14,18 @@
         <tr>
           <th>ID</th>
           <th>Name</th>
+          <th>Size</th>
           <th>Date Requested</th>
           <th>Confirmed?</th>
         </tr>
       {{#each unconfirmedAssists}}
         <tr>
-          <td>{{this.assistId}}</td>
-          <td>{{this.assistUserEmail}}</td>
+          <td>{{this.id}}</td>
+          <td>{{this.UserEmail}}</td>
+          <td>{{this.size}}</td>
           <td>{{this.createdAt}}</td>
           <td>
-            <button class="confirm button is-success is-small" data-assistid="{{this.assistId}}">
+            <button class="confirm button is-success is-small" data-assistsize="{{this.size}}" data-assistid="{{this.id}}">
             Confirm Requested
             </button>
           </td>
@@ -44,8 +46,8 @@
         </tr>
       {{#each confirmedAssists}}
         <tr>
-          <td>{{this.assistId}}</td>
-          <td>{{this.assistUserEmail}}</td>
+          <td>{{this.id}}</td>
+          <td>{{this.UserEmail}}</td>
           <td>{{this.createdAt}}</td>
           <td>{{this.confirmed}}</td>
         </tr>
