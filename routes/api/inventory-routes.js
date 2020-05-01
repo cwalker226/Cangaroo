@@ -43,6 +43,7 @@ module.exports = (app) => {
 
   // Get route for retrieving a single Inventory by Nutrient Class
   app.get('/api/inventory/assist/:nutrientClass/:size', isAdmin, (req, res) => {
+    console.log(`got request for inventory for class ${req.params.nutrientClass} total servings ${req.params.size * 7}`);
     const sql = `SELECT i.quantity, p.name, p.servings, p.id AS productid
                    FROM inventories AS i 
                         INNER JOIN products AS p 
