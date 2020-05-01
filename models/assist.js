@@ -1,6 +1,11 @@
 // Creating our Assist model
-module.exports = (sequelize) => {
+module.exports = (sequelize, DataTypes) => {
   const Assist = sequelize.define('Assist', {
+    confirmed: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
+    },
   });
 
   Assist.associate = (models) => {
