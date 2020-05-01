@@ -1,5 +1,11 @@
 // Requiring our models
 const db = require('../../models');
+// Middleware to check user type for authorization
+
+const isAdmin = require('../../config/middleware/isAdmin');
+// const isClient = require('../../config/middleware/isClient');
+// const isDonor = require('../../config/middleware/isDonor');
+
 
 // Routes
 // =============================================================
@@ -30,7 +36,7 @@ module.exports = (app) => {
   });
 
   // DELETE route for deleting assist
-  app.delete('/api/assistance/:id', (req, res) => {
+  app.delete('/api/assistance/:id', isAdmin, (req, res) => {
     db.Assist.destroy({
       where: {
         id: req.params.id,
@@ -41,7 +47,7 @@ module.exports = (app) => {
   });
 
   // PUT route for updating assist
-  app.put('/api/assistance', (req, res) => {
+  app.put('/api/assistance', isAdmin, (req, res) => {
     db.Assist.update(
       req.body,
       {
