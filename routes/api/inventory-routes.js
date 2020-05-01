@@ -4,9 +4,11 @@
 
 // Dependencies
 // =============================================================
+const { QueryTypes } = require('sequelize');
 
 // Requiring our models
 const db = require('../../models');
+
 
 // Routes
 // =============================================================
@@ -32,6 +34,24 @@ module.exports = (app) => {
       where: {
         ProductId: req.params.ProductId,
       },
+    }).then((dbInventory) => {
+      res.json(dbInventory);
+    });
+  });
+
+  // Get route for retrieving a single Inventory by Nutrient Class
+  app.get('/api/inventory/assist/:nutrientClass/:servings', (req, res) => {
+    const sql = `SELECT i.quantity, p.name, p.servings, p.id AS productid
+                   FROM inventories AS i 
+                        INNER JOIN products AS p 
+                        ON i.ProductId = p.id
+                            AND p.servings * i.quantity >= :quantity 
+                            AND p.nutrient_class = :nutrientClass 
+                        ORDER BY RAND() 
+                        LIMIT 1;`;
+    db.sequelize.query(sql, {
+      replacements: { quantity: req.params.servings, nutrientClass: req.params.nutrientClass },
+      type: QueryTypes.SELECT,
     }).then((dbInventory) => {
       res.json(dbInventory);
     });
