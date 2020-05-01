@@ -10,7 +10,7 @@
       
       {{#if unconfirmedAssists}}
       <h3 class="title is-3">Unconfirmed Assistance Requests</h3>
-      <table>
+      <table class="table is-striped">
         <tr>
           <th>ID</th>
           <th>Name</th>
@@ -37,10 +37,11 @@
 
       {{#if confirmedAssists}}
       <h3 class="title is-3">Confirmed Assistance Requests</h3>
-      <table>
+      <table class="table is-striped">
         <tr>
           <th>ID</th>
           <th>Name</th>
+          <th>Size</th>
           <th>Date Requested</th>
           <th>Confirmed?</th>
         </tr>
@@ -48,6 +49,7 @@
         <tr>
           <td>{{this.id}}</td>
           <td>{{this.UserEmail}}</td>
+          <td>{{this.size}}</td>
           <td>{{this.createdAt}}</td>
           <td>{{this.confirmed}}</td>
         </tr>

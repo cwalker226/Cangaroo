@@ -11,20 +11,23 @@ $(document).ready(() => {
 
   // Does PUTs to update the assist and inventory records. If successful, we reload the page
   // Otherwise we log any errors
-  function confirmAssist(id, nutrientClass, size) {
+  function confirmAssist(id, size) {
     console.log('running confirmAssist');
     $.ajax({
       url: '/api/assistance',
       type: 'PUT',
       data: `id=${id}&confirmed=true`,
       success: () => {
-        $.ajax({
-          url: `/api/inventory/assist/${nutrientClass}/${size}`,
-          type: 'GET',
-          data: `nutrientClass=${nutrientClass}&size=${size}`,
-          success: () => {
-            window.location.reload();
-          },
+        const nutrientClassArr = ['carbohydrates', 'fats', 'fiber', 'minerals', 'protein', 'vitamins', 'water'];
+        nutrientClassArr.forEach((nutrientClass) => {
+          $.ajax({
+            url: `/api/inventory/assist/${nutrientClass}/${size}`,
+            type: 'GET',
+            success: (result) => {
+              console.log(result);
+              // window.location.reload();
+            },
+          });
         });
       },
     }).catch(handleAssistErr);

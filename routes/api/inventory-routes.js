@@ -42,17 +42,17 @@ module.exports = (app) => {
   });
 
   // Get route for retrieving a single Inventory by Nutrient Class
-  app.get('/api/inventory/assist/:nutrientClass/:servings', isAdmin, (req, res) => {
+  app.get('/api/inventory/assist/:nutrientClass/:size', isAdmin, (req, res) => {
     const sql = `SELECT i.quantity, p.name, p.servings, p.id AS productid
                    FROM inventories AS i 
                         INNER JOIN products AS p 
                         ON i.ProductId = p.id
-                            AND p.servings * i.quantity >= :quantity 
+                            AND p.servings * i.quantity >= :size * 7 
                             AND p.nutrient_class = :nutrientClass 
                         ORDER BY RAND() 
                         LIMIT 1;`;
     db.sequelize.query(sql, {
-      replacements: { quantity: req.params.servings, nutrientClass: req.params.nutrientClass },
+      replacements: { size: req.params.size, nutrientClass: req.params.nutrientClass },
       type: QueryTypes.SELECT,
     }).then((dbInventory) => {
       res.json(dbInventory);
