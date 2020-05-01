@@ -162,8 +162,8 @@ module.exports = (express) => {
         return assistPeople;
       });
 
-      const confirmedAssists = assists.filter((item) => item.confirmed);
-      const unconfirmedAssists = assists.filter((item) => !item.confirmed);
+      const confirmedAssists = assists.filter((item) => item.confirmed === 'yes');
+      const unconfirmedAssists = assists.filter((item) => item.confirmed === 'no');
 
       res.render('admin-assists', {
         assists,
