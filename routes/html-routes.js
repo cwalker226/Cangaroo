@@ -155,13 +155,22 @@ module.exports = (express) => {
       const userType = 'admin';
       const assists = allAssists.map((item) => {
         const assistPeople = {};
-        assistPeople.id = item.dataValues.id;
-        assistPeople.name = item.dataValues.UserEmail;
-        assistPeople.basketDate = item.dataValues.basket[0].dataValues.createdAt;
+        assistPeople.assistId = item.dataValues.id;
+        assistPeople.assistUserEmail = item.dataValues.UserEmail;
+        assistPeople.createdAt = item.dataValues.createdAt;
+        assistPeople.confirmed = item.dataValues.confirmed ? 'yes' : 'no';
         return assistPeople;
       });
-      console.log(assists);
-      res.render('admin-assists', { assists, userType });
+
+      const confirmedAssists = assists.filter((item) => item.confirmed);
+      const unconfirmedAssists = assists.filter((item) => !item.confirmed);
+
+      res.render('admin-assists', {
+        assists,
+        confirmedAssists,
+        unconfirmedAssists,
+        userType,
+      });
     });
   });
   return router;

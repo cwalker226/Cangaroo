@@ -4,19 +4,24 @@
       {{#unless assists}}
       <p>No assists yet.</p>
       {{/unless}}
+      {{#if assists.confirmed }}
+      fooobarbazquux
+      {{/if}}
       {{#if assists}}
       <p>Here is a list of all people we have assisted which are currently in the system.</p>
       <table>
         <tr>
           <th>ID</th>
           <th>Name</th>
-          <th>Date Created</th>
+          <th>Date Requested</th>
+          <th>Confirmed?</th>
         </tr>
       {{#each assists}}
         <tr>
-          <td>{{this.id}}</td>
-          <td>{{this.name}}</td>
-          <td>{{this.basketDate}}</td>
+          <td>{{this.assistId}}</td>
+          <td>{{this.assistUserEmail}}</td>
+          <td>{{this.createdAt}}</td>
+          <td>{{this.confirmed}}</td>
         </tr>
       {{/each}}
       </table>
