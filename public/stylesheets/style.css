@@ -33,3 +33,23 @@ form.login {
   width: 66vw;
   left: 17vw;
 }
+
+#textLogin{
+  background-color: rgba(17, 16, 16, 0.884);
+  text-align: center;
+  color: cornsilk;
+  border: rgb(218, 114, 76) 6px ridge;
+  border-radius: 12px;
+  padding: 40px;
+  font-size: 45px;
+  font-family: Arial;
+  font-weight: 900;
+
+}
+
+#containerLogin{
+  background-color: lightgray;
+  padding: 30px;
+  margin-top: 20px;
+  border-radius: 26px;
+}
