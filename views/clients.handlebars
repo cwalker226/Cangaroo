@@ -38,7 +38,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Creation Date</th>
+                            <th>Date Requested</th>
                         </tr>
                     </thead>
                     {{#each unconfirmedAssistance}}
@@ -70,7 +70,7 @@
                     {{#each confirmedAssistance}}
                     <tr>
                         <td>{{this.dataValues.id}}</td>
-                        <td>{{this.dataValues.createdAt}}</td>
+                        <td>{{this.dataValues.updatedAt}}</td>
                         <td>{{this.dataValues.size}}</td>
                         <td><button class="product button is-small" data-assistid="{{this.dataValues.id}}">See Content</button></td>
                     </tr>
