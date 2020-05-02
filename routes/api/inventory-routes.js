@@ -60,8 +60,8 @@ module.exports = (app) => {
       // console.log(dbInventory);
       if (dbInventory.length === 0) {
         const remainingInventorySql = `SELECT i.quantity, p.name, p.id AS productid, p.servings AS productservings
-                   FROM inventories AS i 
-                        INNER JOIN products AS p 
+                   FROM Inventories AS i 
+                        INNER JOIN Products AS p 
                         ON i.ProductId = p.id
                             AND i.quantity >= 1
                             AND p.nutrient_class = :nutrientClass 
