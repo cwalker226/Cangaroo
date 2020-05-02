@@ -54,7 +54,7 @@ $(document).ready(() => {
         },
       }).catch(handleAssistErr);
 
-      /* If we get this far without returning, we didn't make any baskets, so show a message */
+      /* If we get this far without returning, no baskets, so double check then show  message */
       $.get('/api/basket', { AssistId }).then((results) => {
         if (results.length === 0) {
           const basketMsg = `Not confirmed - could not create any baskets for AssistId ${AssistId} because all nutrient classes are too low on inventory. Please add some donations to your inventory.`;
