@@ -1,21 +1,21 @@
 <section class="section">
     <div class="container">
-        <h1>Donations Management</h1>
-        <h2>Welcome <span class="member-name"></span></h2>
+        <h1 class="title is-1">Donations Management</h1>
+        <h2 class="title is-2">Welcome <span class="member-name subtitle is-4"></span></h2>
         <p>Here you can view the donation history for all products.</p>
         <hr>
     </div>
 
     <div class="container">
-      <h3>Donation List</h3>
+      <h3 class="title is-3">Donation List</h3>
       {{#unless donations}}
       <p>No donations yet - you need donors first.</p>
       {{/unless}}
       {{#if donations}}
       <p>Here is a record of all donations that have been received.</p>
       {{#if unconfirmedDonations}}
-      <h4>Unconfirmed Donations</h4>
-      <table class="table">
+      <h4 class="title is-4">Unconfirmed Donations</h4>
+      <table class="table is-striped">
         <thead>
           <tr>
             <th>ID</th>
@@ -50,8 +50,8 @@
       </table>
       {{/if}}
       {{#if confirmedDonations}}
-      <h4>Confirmed Donations</h4>
-      <table class="table">
+      <h4 class="title is-4">Confirmed Donations</h4>
+      <table class="table is-striped">
         <thead>
           <tr>
             <th>ID</th>

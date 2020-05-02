@@ -83,7 +83,7 @@ module.exports = (express) => {
 
   /* Admin page routes */
   router.get('/admin/products', isAdmin, (req, res) => {
-    db.Product.findAll().then((products) => {
+    db.Product.findAll({}).then((products) => {
       const userType = 'admin';
       const nutrientClasses = ['carbohydrates', 'fats', 'fiber', 'minerals', 'protein', 'vitamins', 'water'];
       res.render('admin-products', { products, nutrientClasses, userType });
@@ -141,5 +141,27 @@ module.exports = (express) => {
     });
   });
 
+  router.get('/admin/assists', isAdmin, (req, res) => {
+    db.Assist.findAll({
+      include: [{
+        model: db.User,
+        as: 'user',
+      }, {
+        model: db.Basket,
+        as: 'basket',
+      }],
+    }).then((allAssists) => {
+      const userType = 'admin';
+      const assists = allAssists.map((item) => {
+        const assistPeople = {};
+        assistPeople.id = item.dataValues.id;
+        assistPeople.name = item.dataValues.UserEmail;
+        assistPeople.basketDate = item.dataValues.basket[0].dataValues.createdAt;
+        return assistPeople;
+      });
+      console.log(assists);
+      res.render('admin-assists', { assists, userType });
+    });
+  });
   return router;
 };

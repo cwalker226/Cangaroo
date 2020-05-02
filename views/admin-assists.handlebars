@@ -1,0 +1,25 @@
+<section class="section">
+    <div class="container">
+      <h3>Assist History</h3>
+      {{#unless assists}}
+      <p>No assists yet.</p>
+      {{/unless}}
+      {{#if assists}}
+      <p>Here is a list of all people we have assisted which are currently in the system.</p>
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Date Created</th>
+        </tr>
+      {{#each assists}}
+        <tr>
+          <td>{{this.id}}</td>
+          <td>{{this.name}}</td>
+          <td>{{this.basketDate}}</td>
+        </tr>
+      {{/each}}
+      </table>
+      {{/if}}
+    </div>
+</section>
