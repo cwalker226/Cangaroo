@@ -18,20 +18,22 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-end">
+        <div class="level-left">
+          <div class="level-item">
+              {{#is userType 'admin'}}
+              <a href="/admin/products">Products</a>&nbsp;|&nbsp;
+              <a href="/admin/inventory">Inventory</a>&nbsp;|&nbsp;
+              <a href="/admin/assists">Assists</a>&nbsp;|&nbsp;
+              <a href="/admin/donations">Donations</a>&nbsp;|&nbsp;
+              {{/is}}
+            </div>
+        </div>
         <div class="level-right">
             <div class="level-item">
                 <a href="/logout">
                 Logout
                 </a>
             </div>
-        </div>
-        <div class="level-left">
-            {{#is userType 'admin'}}
-            <a href="/admin/products">Products</a>&nbsp;|&nbsp;
-            <a href="/admin/inventory">Inventory</a>&nbsp;|&nbsp;
-            <a href="/admin/assists">Assists</a>&nbsp;|&nbsp;
-            <a href="/admin/donations">Donations</a>
-            {{/is}}
         </div>
     </div>
   </div>
