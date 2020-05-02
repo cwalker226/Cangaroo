@@ -52,7 +52,7 @@ $(document).ready(() => {
     if (!assistData.size || !assistData.UserEmail) {
       return;
     }
-    // If we have a product and quantity, run the newDonation function
+    /* If we have a product and quantity, run the newDonation function */
     newAssist(assistData.UserEmail, assistData.size);
     sizeInput.val('');
   });
