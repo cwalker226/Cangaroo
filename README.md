@@ -12,7 +12,7 @@
 * [Contributions](#contributions)
 
 ## About
-Cangaroo is a Food Bank inventory management system, created with Node/Express on a cloud hosted MySQL backend. The front end is built with Handlebars templating and Bulma CSS, and email addresses used for registration are verified by a third party (currently supporting Verifalia).
+Cangaroo is a Food Bank inventory management system, created with Node/Express on a MySQL backend. The front end is built with Handlebars templating and Bulma CSS, and email addresses used for registration are verified by a third party (currently supporting Verifalia).
 
 Register as a donor or a client. 
 
