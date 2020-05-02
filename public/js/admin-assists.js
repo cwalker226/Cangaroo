@@ -26,7 +26,6 @@ $(document).ready(() => {
             if (newQuantity < 0) {
               return;
             }
-
             $.ajax({
               url: '/api/inventory',
               type: 'PUT',
@@ -64,10 +63,10 @@ $(document).ready(() => {
   }
 
   // When the Confirm Request button is clicked, get the ID of the assist from the button
-  $('button.confirm').on('click', function (event) {
+  $('button.confirm').on('click', (event) => {
     event.preventDefault();
-    const id = $(this).data('assistid');
-    const size = $(this).data('assistsize');
+    const id = $(event.currentTarget).data('assistid');
+    const size = $(event.currentTarget).data('assistsize');
     const assistData = {
       id,
       size,

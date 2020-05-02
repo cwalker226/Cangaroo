@@ -10,10 +10,9 @@ $(document).ready(() => {
     $('#alert .msg').text("We couldn't log you in with that info. Please try again.");
     $('#alert').fadeIn(500);
   };
-
   /* Close the login error window when the 'x' is clicked */
-  $('.delete').on('click', function () {
-    $(this).parent('div').fadeOut();
+  $('.delete').on('click', (event) => {
+    $(event.currentTarget).parent('div').fadeOut();
   });
 
   // loginUser does a post to our 'api/login' route
@@ -39,7 +38,6 @@ $(document).ready(() => {
     };
 
     if (!userData.email || !userData.password) {
-      console.log('missing email or password');
       return;
     }
 

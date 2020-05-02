@@ -35,7 +35,6 @@ module.exports = (app) => {
   // POST route for saving a new product
   app.post('/api/products', isAdmin, (req, res) => {
     db.Product.create(req.body).then((dbProduct) => {
-      console.log(`New product ID: ${dbProduct.id}`);
       const ProductId = dbProduct.id;
       /* We need a matching inventory record */
       db.Inventory.create({

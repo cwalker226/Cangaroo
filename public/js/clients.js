@@ -13,6 +13,10 @@ $(document).ready(() => {
     $('#alert .msg').text(err.responseJSON);
     $('#alert').fadeIn(500);
   }
+  /* Close the error window when the 'x' is clicked */
+  $('.delete').on('click', (event) => {
+    $(event.currentTarget).parent('div').fadeOut();
+  });
 
   // Does a post to the 'create assist' route. If successful, the page is reloaded
   // Otherwise we log any errors
@@ -53,9 +57,9 @@ $(document).ready(() => {
     sizeInput.val('');
   });
 
-  productBtn.on('click', function (event) {
+  productBtn.on('click', (event) => {
     event.preventDefault();
-    const assistID = $(this).data('assistid');
+    const assistID = $(event.currentTarget).data('assistid');
     if (listBox.hasClass('listBoxHide')) {
       listBox.removeClass('listBoxHide');
     }

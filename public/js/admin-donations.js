@@ -34,11 +34,11 @@ $(document).ready(() => {
   }
 
   // When the submit button is clicked, get the ID of the donation from the button
-  $('button.confirm').on('click', function (event) {
+  $('button.confirm').on('click', (event) => {
     event.preventDefault();
-    const id = $(this).data('donationid');
-    const ProductId = $(this).data('productid');
-    const quantity = $(this).data('quantity');
+    const id = $(event.currentTarget).data('donationid');
+    const ProductId = $(event.currentTarget).data('productid');
+    const quantity = $(event.currentTarget).data('quantity');
     const donationData = {
       id,
       ProductId,
@@ -52,9 +52,9 @@ $(document).ready(() => {
     confirmDonation(donationData.id, donationData.ProductId, donationData.quantity);
   });
 
-  $('button.reject').on('click', function (event) {
+  $('button.reject').on('click', (event) => {
     event.preventDefault();
-    const id = $(this).data('donationid');
+    const id = $(event.currentTarget).data('donationid');
     $.ajax({
       method: 'DELETE',
       url: `/api/donation/${id}`,
