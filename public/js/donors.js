@@ -9,6 +9,12 @@ $(document).ready(() => {
     $('#alert').fadeIn(500);
   }
 
+  /* Close the error window when the 'x' is clicked */
+  $('.delete').on('click', function () {
+    $(this).parent('div').fadeOut();
+  });
+
+
   // Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors
   function newDonation(ProductId, quantity, UserEmail) {
@@ -37,6 +43,11 @@ $(document).ready(() => {
 
     /* Donations can't be negative quantity */
     if (Math.sign(donationData.quantity) === -1) {
+      return;
+    }
+    if (donationData.ProductId === 'Choose product to donate') {
+      $('#alert .msg').text('You must choose a product to donate');
+      $('#alert').fadeIn(500);
       return;
     }
     if (!donationData.ProductId || !donationData.quantity || !donationData.UserEmail) {
