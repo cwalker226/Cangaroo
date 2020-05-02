@@ -9,32 +9,49 @@
     <title>Cangaroo Inventory Management</title>
 </head>
 <body>
+
+<script>
+  $(document).ready(function() {
+
+  // Check for click events on the navbar burger icon
+  $(".navbar-burger").click(function() {
+
+      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+      $(".navbar-burger").toggleClass("is-active");
+      $(".navbar-menu").toggleClass("is-active");
+
+  });
+});
+</script>
+
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="https://cangaroo.herokuapp.com/">
       <img src="/img/cangaroo-logo.png" width="112" height="28">
     </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
   </div>
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-end">
-        <div class="level-left">
-          <div class="level-item">
+          <div class="navabr-item">
+            <div class="nav-a">
               {{#is userType 'admin'}}
-              <a href="/admin/products">Products</a>&nbsp;|&nbsp;
-              <a href="/admin/inventory">Inventory</a>&nbsp;|&nbsp;
-              <a href="/admin/assists">Assists</a>&nbsp;|&nbsp;
-              <a href="/admin/donations">Donations</a>&nbsp;|&nbsp;
+              <a class="navbar-a" href="/admin/products">Products</a>&nbsp;|&nbsp;
+              <a class="navbar-a" href="/admin/inventory">Inventory</a>&nbsp;|&nbsp;
+              <a class="navbar-a" href="/admin/assists">Assists</a>&nbsp;|&nbsp;
+              <a class="navbar-a" href="/admin/donations">Donations</a>&nbsp;|&nbsp;
               {{/is}}
-            </div>
-        </div>
-        <div class="level-right">
-            <div class="level-item">
-                <a href="/logout">
+              <a href="/logout">
                 Logout
                 </a>
+              </div>
             </div>
-        </div>
     </div>
   </div>
 </nav>
