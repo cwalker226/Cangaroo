@@ -30,6 +30,7 @@ module.exports = (app) => {
 
   // POST route for saving a new Basket
   app.post('/api/basket', (req, res) => {
+    // console.log('got a create basket request');
     db.Basket.create(req.body).then((result) => {
       res.json(result);
     });

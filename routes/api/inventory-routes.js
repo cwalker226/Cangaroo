@@ -43,7 +43,7 @@ module.exports = (app) => {
 
   // Get route for retrieving a single Inventory by Nutrient Class
   app.get('/api/inventory/assist/:nutrientClass/:size', isAdmin, (req, res) => {
-    console.log(`got request for inventory for class ${req.params.nutrientClass} total servings ${req.params.size * 7}`);
+    // console.log(`request inventory for ${req.params.nutrientClass}, ${req.params.size * 7}`);
     const sql = `SELECT i.quantity, p.name, p.servings, p.id AS productid
                    FROM inventories AS i 
                         INNER JOIN products AS p 
@@ -70,9 +70,6 @@ module.exports = (app) => {
         db.sequelize.query(remainingInventorySql, {
           replacements: { size: req.params.size, nutrientClass: req.params.nutrientClass },
           type: QueryTypes.SELECT,
-        }).then((smallInventory) => {
-          // console.log(`small inventory ${smallInventory}`);
-          res.json(smallInventory[0]);
         });
       }
       return res.json(dbInventory[0]);
