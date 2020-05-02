@@ -63,7 +63,7 @@ Also add the Verifalia API connection information (free, registration at https:/
 
 `VERIFALIA_PASS=myverifaliapass`
 
-If you are running on Heroku, add this Heroku environment variable config to your app:
+If you are running on Heroku, add a few config variables to your app. You just need VERIFALIA_USER, VERIFALIA_PASS and this entry:
 
 `NODE_ENV=production`
 
