@@ -1,7 +1,6 @@
 // *********************************************************************************
 // inventory-routes.js - this file offers a set of routes for displaying and saving data to the db
 // *********************************************************************************
-
 // Dependencies
 // =============================================================
 const { QueryTypes } = require('sequelize');
@@ -47,8 +46,8 @@ module.exports = (app) => {
     const assistSize = familySize * 7;
     console.log(`request inventory for ${nutrientClass}, ${assistSize}`);
     const sql = `SELECT i.quantity, p.name, p.id AS productid, p.servings AS productservings
-                   FROM Inventories AS i 
-                        INNER JOIN Products AS p 
+                   FROM inventories AS i 
+                        INNER JOIN products AS p 
                         ON i.ProductId = p.id
                             AND p.servings * i.quantity >= :assistSize
                             AND p.nutrient_class = :nutrientClass 
@@ -61,8 +60,8 @@ module.exports = (app) => {
       // console.log(dbInventory);
       if (dbInventory.length === 0) {
         const remainingInventorySql = `SELECT i.quantity, p.name, p.id AS productid, p.servings AS productservings
-                   FROM Inventories AS i 
-                        INNER JOIN Products AS p 
+                   FROM inventories AS i 
+                        INNER JOIN products AS p 
                         ON i.ProductId = p.id
                             AND i.quantity >= 1
                             AND p.nutrient_class = :nutrientClass 

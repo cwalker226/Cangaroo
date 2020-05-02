@@ -5,7 +5,6 @@ $(document).ready(() => {
     $('#alert .msg').text(err.responseJSON);
     $('#alert').fadeIn(500);
   }
-
   // Does PUTs to update the assist and inventory records. If successful, we reload the page
   // Otherwise we log any errors
   function confirmAssist(AssistId, familySize) {

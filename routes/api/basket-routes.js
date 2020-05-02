@@ -3,8 +3,9 @@ const db = require('../../models');
 // Middleware to check user type for authorization
 
 const isAdmin = require('../../config/middleware/isAdmin');
-const isClient = require('../../config/middleware/isClient');
+// const isClient = require('../../config/middleware/isClient');
 // const isDonor = require('../../config/middleware/isDonor');
+const isAuth = require('../../config/middleware/isAuthenticated');
 
 
 // Routes
@@ -61,7 +62,7 @@ module.exports = (app) => {
     });
   });
 
-  app.get('/api/basket/assist/:AssistId', isClient, (req, res) => {
+  app.get('/api/basket/assist/:AssistId', isAuth, (req, res) => {
     db.Basket.findAll({
       include: {
         model: db.Product,
