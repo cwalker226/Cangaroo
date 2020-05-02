@@ -35,7 +35,7 @@ form.login {
   left: 17vw;
 }
 
-#textLogin{
+.page-title{
   background-color: rgba(32, 32, 32, 0.884);
   text-align: center;
   color: cornsilk;
