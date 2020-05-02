@@ -60,21 +60,38 @@ $(document).ready(() => {
               },
             }).catch(handleAssistErr);
             const alertNewBasket = () => {
-              const basketEl = $('p');
+              console.log('Alerting for new basket');
+              const basketEl = $('<p></p>');
               const basketMsg = `New basket number ${basketCounter} created for UserEmail AssistId ${AssistId}, ProductId ${ProductId}, quantity ${quantityNeeded}`;
-              console.log(basketMsg);
+              // console.log(basketMsg);
               basketEl.text(basketMsg);
               // $('#alert .msg').text(basketMsg);
               $('#alert .msg').append(basketEl);
+              console.log(basketEl);
               $('#alert').fadeIn(500);
             };
-            alertNewBasket(AssistId, ProductId);
+            $.ajax({
+              url: '/api/assistance',
+              type: 'PUT',
+              data: `id=${AssistId}&confirmed=true`,
+              success: () => {
+                console.log(`successfully confirmed AssistId ${AssistId}`);
+                alertNewBasket(AssistId, ProductId);
+              },
+            });
+            $(this).parent().parent().remove();
             // window.location.reload();
           }
           /* else there is actually zero for this nutrient class */
         },
       }).catch(handleAssistErr);
-      return console.log('failed to find enough to fill this basket, on to the next basket');
+
+      $.get('/api/basket', { AssistId }).then((results) => {
+        console.log(`results of basket get all ${results.length}`);
+      })
+      const basketMsg = `Not confirmed - could not create any baskets for AssistId ${AssistId} because all nutrient classes are too low on inventory. Please add some donations to your inventory.`;
+      console.log(basketMsg);
+      $('#alert .msg').text(basketMsg);
     });
   }
 
