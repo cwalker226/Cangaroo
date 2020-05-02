@@ -14,7 +14,7 @@ $(document).ready(() => {
   // Otherwise we log any errors
   function confirmAssist(AssistId, familySize) {
     const nutrientClassArr = ['carbohydrates', 'fats', 'fiber', 'minerals', 'protein', 'vitamins', 'water'];
-    nutrientClassArr.forEach((nutrientClass) => {
+    nutrientClassArr.forEach((nutrientClass, index, array) => {
       $.ajax({
         url: `/api/inventory/assist/${nutrientClass}/${familySize}`,
         type: 'GET',
@@ -23,13 +23,14 @@ $(document).ready(() => {
           if (inventoryQuantity > 0) {
             const servingsNeeded = familySize * 7;
             const servingsPerQuantity = result.productservings;
-            const quantityNeeded = Math.ceil(servingsNeeded / servingsPerQuantity);
+            let quantityNeeded = Math.ceil(servingsNeeded / servingsPerQuantity);
             const ProductId = result.productid;
 
             /* Make a basket and decrement inventory */
-            const newQuantity = result.quantity - quantityNeeded;
+            let newQuantity = result.quantity - quantityNeeded;
             if (newQuantity < 0) {
-              return;
+              quantityNeeded = result.quantity;
+              newQuantity = 0;
             }
 
             $.ajax({
@@ -41,32 +42,36 @@ $(document).ready(() => {
                   AssistId,
                   ProductId,
                   quantity: quantityNeeded,
-                });
+                }).then(() => {
+                  /* Confirm the assist if we have a basket for this assist ID */
+                  if (index === array.length) {
+                    $.ajax({
+                      url: '/api/assistance',
+                      type: 'PUT',
+                      data: `id=${AssistId}&confirmed=true`,
+                      success: () => {
+                        console.log('window reload assistance');
+                        window.location.reload();
+                      },
+                    }).catch(console.log('assistance'));
+                  } else {
+                    /* Count baskets, then show message if none */
+                    const assistBasketUrl = `/api/basket/assist/${AssistId}`;
+                    $.get(assistBasketUrl).then((results) => {
+                      if (results.length === 0) {
+                        console.log('called basket by assist api');
+                        const basketMsg = `Not confirmed - could not create any baskets for AssistId ${AssistId} because all nutrient classes are too low on inventory. Please add some donations to your inventory.`;
+                        $('#alert .msg').text(basketMsg);
+                        $('#alert').fadeIn(500);
+                      }
+                    }).catch(console.log('basket assist'));
+                  }
+                }).catch(console.log('basket'));
               },
-            }).catch(handleAssistErr);
-            /* Confirm the assist if we have a basket for this assist ID */
-            $.ajax({
-              url: '/api/assistance',
-              type: 'PUT',
-              data: `id=${AssistId}&confirmed=true`,
-              success: () => {
-                window.location.reload();
-              },
-            });
+            }).catch(console.log('inventory'));
           }
-          /* else there is actually zero for this nutrient class */
         },
-      }).catch((err) => console.log(err));
-    });
-    /* Count baskets, then show message if none */
-    const assistBasketUrl = `/api/basket/assist/${AssistId}`;
-    $.get(assistBasketUrl).then((results) => {
-      if (results.length === 0) {
-        console.log('called basket by assist api');
-        const basketMsg = `Not confirmed - could not create any baskets for AssistId ${AssistId} because all nutrient classes are too low on inventory. Please add some donations to your inventory.`;
-        $('#alert .msg').text(basketMsg);
-        $('#alert').fadeIn(500);
-      }
+      }).catch((err) => console.log('inventory assist', err));
     });
   }
 

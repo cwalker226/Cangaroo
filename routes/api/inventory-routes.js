@@ -72,10 +72,11 @@ module.exports = (app) => {
           replacements: { nutrientClass },
           type: QueryTypes.SELECT,
         }).then((remainingInventory) => {
-          //res.json(remainingInventory[0]);
+          return res.json(remainingInventory[0]);
         });
+      } else {
+        return res.json(dbInventory[0]);
       }
-      return res.json(dbInventory[0]);
     });
   });
 
