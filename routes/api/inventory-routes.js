@@ -48,7 +48,7 @@ module.exports = (app) => {
                    FROM inventories AS i 
                         INNER JOIN products AS p 
                         ON i.ProductId = p.id
-                            AND p.servings * i.quantity >= :size * 7 
+                            AND p.servings * i.quantity >= :size * 7
                             AND p.nutrient_class = :nutrientClass 
                         ORDER BY RAND() 
                         LIMIT 1;`;
@@ -56,7 +56,27 @@ module.exports = (app) => {
       replacements: { size: req.params.size, nutrientClass: req.params.nutrientClass },
       type: QueryTypes.SELECT,
     }).then((dbInventory) => {
-      res.json(dbInventory);
+      // console.log(dbInventory);
+      if (dbInventory.length === 0) {
+        const remainingInventorySql = `SELECT i.quantity, p.name, p.servings, p.id AS productid
+                   FROM inventories AS i 
+                        INNER JOIN products AS p 
+                        ON i.ProductId = p.id
+                            AND i.quantity >= 1
+                            AND p.nutrient_class = :nutrientClass 
+                        ORDER BY RAND() 
+                        LIMIT 1;`;
+        console.log('no inventory for that nutrient class');
+        db.sequelize.query(remainingInventorySql, {
+          replacements: { size: req.params.size, nutrientClass: req.params.nutrientClass },
+          type: QueryTypes.SELECT,
+        }).then((smallInventory) => {
+          console.log(`small inventory ${smallInventory}`);
+          res.json(smallInventory[0]);
+        });
+      } else {
+        return res.json(dbInventory[0]);
+      }
     });
   });
 

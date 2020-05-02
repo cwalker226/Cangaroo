@@ -24,6 +24,10 @@ $(document).ready(() => {
             url: `/api/inventory/assist/${nutrientClass}/${size}`,
             type: 'GET',
             success: (result) => {
+              if (result.quantity > 0) {
+                console.log(`we got a non zero result "${result.quantity}" on quantity for a basket, let's make a new basket`);
+                
+              }
               console.log(result);
               // window.location.reload();
             },
