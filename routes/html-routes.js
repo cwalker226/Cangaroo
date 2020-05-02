@@ -135,6 +135,7 @@ module.exports = (express) => {
         donationRecord.nutrient_class = item.dataValues.product.nutrient_class;
         donationRecord.total_servings = item.dataValues.quantity * item.dataValues.product.servings;
         donationRecord.confirmed = item.dataValues.confirmed;
+        donationRecord.updatedAt = item.dataValues.updatedAt;
         return donationRecord;
       });
       const confirmedDonations = donations.filter((item) => item.confirmed);
