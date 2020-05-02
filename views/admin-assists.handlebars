@@ -46,7 +46,7 @@
           <th>ID</th>
           <th>Name</th>
           <th>Size</th>
-          <th>Date Requested</th>
+          <th>Date Accepted</th>
           <th>Confirmed?</th>
         </tr>
       {{#each confirmedAssists}}
@@ -54,7 +54,7 @@
           <td>{{this.id}}</td>
           <td>{{this.UserEmail}}</td>
           <td>{{this.size}}</td>
-          <td>{{this.createdAt}}</td>
+          <td>{{this.updatedAt}}</td>
           <td>{{this.confirmed}}</td>
         </tr>
       {{/each}}
