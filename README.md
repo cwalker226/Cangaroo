@@ -11,13 +11,19 @@
 * [Contributions](#contributions)
 
 ## About
-Cangaroo is a Food Bank inventory management system, created with Node/Express on a cloud hosted MySQL backend. The front end is built with Handlebars templating and Bulma CSS, and email addresses used for registration are verified by a third party.
+Cangaroo is a Food Bank inventory management system, created with Node/Express on a cloud hosted MySQL backend. The front end is built with Handlebars templating and Bulma CSS, and email addresses used for registration are verified by a third party (currently supporting Verifalia).
 
 Register as a donor or a client. 
 
+### Donors
+
 Donors can create donation requests for specific products. They can view their confirmed requests and unconfirmed requests.
 
+### Clients
+
 Clients can create assistance requests. They can view their confirmed assistance and unconfirmed assistance.
+
+### Admins
 
 Admins can approve donations, or approve client assistance requests as well as view confirmed and unconfirmed donations and requests. They can manage inventory by viewing inventory or products as well as adding new products.
 
@@ -41,7 +47,7 @@ Create a file for your database connection information:
 
 `touch .env`
 
-Open the file `.env` with your favorite editor and add the connection information:
+Open the file `.env` with your favorite editor and add the connection information (this file is ignored by Git):
 
 `DB_HOST=localhost`
 
@@ -50,6 +56,12 @@ Open the file `.env` with your favorite editor and add the connection informatio
 `DB_PASS=password`
 
 `DB_NAME=cangaroo_db`
+
+Also add the Verifalia API connection information (free, registration at https://verifalia.com required):
+
+`VERIFALIA_USER=myverifaliauser`
+
+`VERIFALIA_PASS=myverifaliapass`
 
 If you are running on Heroku, add this Heroku environment variable config to your app:
 
