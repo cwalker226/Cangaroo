@@ -15,7 +15,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control is-expanded">
-                            <input class="input form-numStep" id="size-input" type="number" placeholder="1" min="1">
+                            <input class="input form-numStep" id="size-input" type="number" placeholder="0" min="1">
                             <input type="submit" value="Request Basket" class="basket button" id='request-button'>
                         </div>
                     </div>
@@ -26,14 +26,37 @@
     </div>
     <hr>
     <div class="container">
-        
       <h3 class="title is-3">Assistance History</h3>
+      {{#unless assistance}}
+      <p>No assistance has been received yet - you can use the form above to make your first basket.</p>
+      {{/unless}}
       <div class="columns">
             <div class="column">
-                {{#unless assistance}}
-                <p>No assistance has been received yet - you can use the form above to make your first basket.</p>
-                {{/unless}}
-                {{#if assistance}}
+                {{#if unconfirmedAssistance}}
+                <h4 class="title is-4">Baskets Requested</h4>
+                <table class="table is-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Creation Date</th>
+                        </tr>
+                    </thead>
+                    {{#each unconfirmedAssistance}}
+                    <tr>
+                        <td>{{this.dataValues.id}}</td>
+                        <td>{{this.dataValues.createdAt}}</td>
+                    </tr>
+                    {{/each}}
+                </table>
+                {{/if}}
+            </div>
+            <div class="column">
+
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column">
+                {{#if confirmedAssistance}}
                 <h4  class="title is-4">Baskets Received</h4>
                 <table class="table is-striped">
                     <thead>
@@ -44,12 +67,12 @@
                             <th></th>
                         </tr>
                     </thead>
-                    {{#each assistance}}
+                    {{#each confirmedAssistance}}
                     <tr>
-                    <td>{{this.dataValues.id}}</td>
-                    <td>{{this.dataValues.createdAt}}</td>
-                    <td>{{this.dataValues.size}}</td>
-                    <td><button class="product button is-small" data-assistid="{{this.dataValues.id}}">See Content</button></td>
+                        <td>{{this.dataValues.id}}</td>
+                        <td>{{this.dataValues.createdAt}}</td>
+                        <td>{{this.dataValues.size}}</td>
+                        <td><button class="product button is-small" data-assistid="{{this.dataValues.id}}">See Content</button></td>
                     </tr>
                     {{/each}}
                 </table>
@@ -64,7 +87,6 @@
                 </div>
             </div>
         </div>
-      
     </div>
 </div>
 

@@ -5,10 +5,10 @@
             <progress class="progress  is-large is-info" max="100"></progress>
         </div>
     </div>
-    <div class="container">
-        <h2>Sign Up Form</h2>
+    <div class="container" id="containerSignup">
+        <h2 class="page-title">Sign Up Form</h2>
         <form class="signup">
-            <div class="field">
+            <div class="field" id="classify">
                 <label>I am a:</label>
                 <div class="control">
                     <label class="radio">
@@ -24,22 +24,26 @@
                 </div>
             </div>
         
-            <div class="field">
-                <label class="label">Email address</label>
-                <input type="email" id="email-input" placeholder="Email">
+           <div class="field">
+            <label class="label">Email Address:</label>
+            <div class="control">
+              <input class="input" type="email" id="email-input" placeholder="Email">
             </div>
+          </div>
 
-            <div class="field">
-                <label class="label">Password</label>
-                <input type="password" id="password-input" placeholder="Password">
+           <div class="field">
+            <label class="label">Password:</label>
+            <div class="control">
+              <input class="input" type="password" id="password-input" placeholder="Password">
             </div>
+          </div>
 
             <div style="display: none" id="alert" class="alert alert-danger" role="alert">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 <span class="sr-only">Error:</span> <span class="msg"></span>
             </div>
             <div class="control">
-                <button type="submit" class="button">Sign Up</button>
+                <button type="submit" class="button is-dark push-btn">Sign Up</button>
             </div>
         </form>
         <br />

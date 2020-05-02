@@ -7,7 +7,11 @@
 
       {{#if assists}}
       <p>Here is a list of all people we have assisted which are currently in the system.</p>
-      
+      <div style="display: none" id="alert" class="notification is-information is-light">
+        <button class="delete"></button>
+        <span>Information:</span> <span class="msg"></span>
+      </div>
+
       {{#if unconfirmedAssists}}
       <h3 class="title is-3">Unconfirmed Assistance Requests</h3>
       <table class="table is-striped">
@@ -26,7 +30,7 @@
           <td>{{this.createdAt}}</td>
           <td>
             <button class="confirm button is-success is-small" data-assistsize="{{this.size}}" data-assistid="{{this.id}}">
-            Confirm Requested
+            Confirm Request
             </button>
           </td>
 
