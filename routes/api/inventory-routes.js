@@ -66,17 +66,16 @@ module.exports = (app) => {
                             AND p.nutrient_class = :nutrientClass 
                         ORDER BY RAND() 
                         LIMIT 1;`;
-        console.log('no inventory for that nutrient class');
+        // console.log('no inventory for that nutrient class');
         db.sequelize.query(remainingInventorySql, {
           replacements: { size: req.params.size, nutrientClass: req.params.nutrientClass },
           type: QueryTypes.SELECT,
         }).then((smallInventory) => {
-          console.log(`small inventory ${smallInventory}`);
+          // console.log(`small inventory ${smallInventory}`);
           res.json(smallInventory[0]);
         });
-      } else {
-        return res.json(dbInventory[0]);
       }
+      return res.json(dbInventory[0]);
     });
   });
 

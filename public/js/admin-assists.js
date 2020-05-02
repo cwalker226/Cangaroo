@@ -12,7 +12,7 @@ $(document).ready(() => {
   // Does PUTs to update the assist and inventory records. If successful, we reload the page
   // Otherwise we log any errors
   function confirmAssist(id, size) {
-    console.log('running confirmAssist');
+    // console.log('running confirmAssist');
     $.ajax({
       url: '/api/assistance',
       type: 'PUT',
@@ -26,7 +26,6 @@ $(document).ready(() => {
             success: (result) => {
               if (result.quantity > 0) {
                 console.log(`we got a non zero result "${result.quantity}" on quantity for a basket, let's make a new basket`);
-                
               }
               console.log(result);
               // window.location.reload();
