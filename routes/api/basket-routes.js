@@ -3,7 +3,7 @@ const db = require('../../models');
 // Middleware to check user type for authorization
 
 const isAdmin = require('../../config/middleware/isAdmin');
-// const isClient = require('../../config/middleware/isClient');
+const isClient = require('../../config/middleware/isClient');
 // const isDonor = require('../../config/middleware/isDonor');
 
 
@@ -57,6 +57,21 @@ module.exports = (app) => {
       },
     ).then((dbPost) => {
       res.json(dbPost);
+    });
+  });
+
+  app.get('/api/basket/assist/:AssistId', isClient, (req, res) => {
+    db.Basket.findAll({
+      include: {
+        model: db.Product,
+        as: 'product',
+        where: { id: db.Sequelize.col('Basket.ProductId') },
+      },
+      where: {
+        AssistId: req.params.AssistId,
+      },
+    }).then((result) => {
+      res.json(result);
     });
   });
 };

@@ -82,3 +82,7 @@ form.login {
 .form-numStep {
   width: 8%;
 }
+
+.listBoxHide {
+  display: none;
+}
