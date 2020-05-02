@@ -27,13 +27,9 @@ $(document).ready(() => {
           if (inventoryQuantity > 0) {
             console.log(`non zero result "${result.quantity}" on quantity, make new basket`);
             const servingsNeeded = familySize * 7;
-            console.log(`servingsNeeded: ${servingsNeeded}`);
             const servingsPerQuantity = result.productservings;
             const quantityNeeded = Math.ceil(servingsNeeded / servingsPerQuantity);
             const ProductId = result.productid;
-
-            console.log(`size will be ${quantityNeeded}`);
-            console.log(`this is for productId ${ProductId}`);
 
             /* Make a basket and decrement inventory */
             const newQuantity = result.quantity - quantityNeeded;
@@ -55,7 +51,7 @@ $(document).ready(() => {
                   quantity: quantityNeeded,
                 }).then(() => {
                   basketCounter += 1;
-                  // console.log(`Created new basket for assist ${id}`);
+                  console.log(`Created new basket for assist ${AssistId} and incremented ${basketCounter}`);
                 });
               },
             }).catch(handleAssistErr);
@@ -63,9 +59,7 @@ $(document).ready(() => {
               console.log('Alerting for new basket');
               const basketEl = $('<p></p>');
               const basketMsg = `New basket number ${basketCounter} created for UserEmail AssistId ${AssistId}, ProductId ${ProductId}, quantity ${quantityNeeded}`;
-              // console.log(basketMsg);
               basketEl.text(basketMsg);
-              // $('#alert .msg').text(basketMsg);
               $('#alert .msg').append(basketEl);
               console.log(basketEl);
               $('#alert').fadeIn(500);
@@ -77,9 +71,10 @@ $(document).ready(() => {
               success: () => {
                 console.log(`successfully confirmed AssistId ${AssistId}`);
                 alertNewBasket(AssistId, ProductId);
+                console.log($(this).parent().parent());
+                // $(this).parent().parent().remove();
               },
             });
-            $(this).parent().parent().remove();
             // window.location.reload();
           }
           /* else there is actually zero for this nutrient class */
@@ -88,10 +83,15 @@ $(document).ready(() => {
 
       $.get('/api/basket', { AssistId }).then((results) => {
         console.log(`results of basket get all ${results.length}`);
-      })
-      const basketMsg = `Not confirmed - could not create any baskets for AssistId ${AssistId} because all nutrient classes are too low on inventory. Please add some donations to your inventory.`;
-      console.log(basketMsg);
-      $('#alert .msg').text(basketMsg);
+        if (results.length === 0) {
+          const basketMsg = `Not confirmed - could not create any baskets for AssistId ${AssistId} because all nutrient classes are too low on inventory. Please add some donations to your inventory.`;
+          console.log(basketMsg);
+          $('#alert .msg').text(basketMsg);
+        } else {
+          const basketMsg = `Confirmed - ${results.length} baskets created`;
+          $('#alert .msg').text(basketMsg);
+        }
+      });
     });
   }
 
