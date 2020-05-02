@@ -42,23 +42,25 @@ module.exports = (app) => {
   });
 
   // Get route for retrieving a single Inventory by Nutrient Class
-  app.get('/api/inventory/assist/:nutrientClass/:size', isAdmin, (req, res) => {
-    // console.log(`request inventory for ${req.params.nutrientClass}, ${req.params.size * 7}`);
-    const sql = `SELECT i.quantity, p.name, p.servings, p.id AS productid
+  app.get('/api/inventory/assist/:nutrientClass/:familySize', isAdmin, (req, res) => {
+    const { familySize, nutrientClass } = req.params;
+    const assistSize = familySize * 7;
+    console.log(`request inventory for ${nutrientClass}, ${assistSize}`);
+    const sql = `SELECT i.quantity, p.name, p.id AS productid, p.servings AS productservings
                    FROM inventories AS i 
                         INNER JOIN products AS p 
                         ON i.ProductId = p.id
-                            AND p.servings * i.quantity >= :size * 7
+                            AND p.servings * i.quantity >= :assistSize
                             AND p.nutrient_class = :nutrientClass 
                         ORDER BY RAND() 
                         LIMIT 1;`;
     db.sequelize.query(sql, {
-      replacements: { size: req.params.size, nutrientClass: req.params.nutrientClass },
+      replacements: { assistSize, nutrientClass },
       type: QueryTypes.SELECT,
     }).then((dbInventory) => {
       // console.log(dbInventory);
       if (dbInventory.length === 0) {
-        const remainingInventorySql = `SELECT i.quantity, p.name, p.servings, p.id AS productid
+        const remainingInventorySql = `SELECT i.quantity, p.name, p.id AS productid, p.servings AS productservings
                    FROM inventories AS i 
                         INNER JOIN products AS p 
                         ON i.ProductId = p.id
@@ -68,8 +70,10 @@ module.exports = (app) => {
                         LIMIT 1;`;
         // console.log('no inventory for that nutrient class');
         db.sequelize.query(remainingInventorySql, {
-          replacements: { size: req.params.size, nutrientClass: req.params.nutrientClass },
+          replacements: { nutrientClass },
           type: QueryTypes.SELECT,
+        }).then((resultSmaller) => {
+          console.log(resultSmaller[0]);
         });
       }
       return res.json(dbInventory[0]);
