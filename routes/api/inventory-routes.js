@@ -46,7 +46,7 @@ module.exports = (app) => {
     const { familySize, nutrientClass } = req.params;
     const assistSize = familySize * 7;
     console.log(`request inventory for ${nutrientClass}, ${assistSize}`);
-    const sql = `SELECT i.quantity, p.name, p.servings, p.id AS productid
+    const sql = `SELECT i.quantity, p.name, p.id AS productid, p.servings AS productservings
                    FROM inventories AS i 
                         INNER JOIN products AS p 
                         ON i.ProductId = p.id
@@ -60,7 +60,7 @@ module.exports = (app) => {
     }).then((dbInventory) => {
       // console.log(dbInventory);
       if (dbInventory.length === 0) {
-        const remainingInventorySql = `SELECT i.quantity, p.name, p.servings, p.id AS productid
+        const remainingInventorySql = `SELECT i.quantity, p.name, p.id AS productid, p.servings AS productservings
                    FROM inventories AS i 
                         INNER JOIN products AS p 
                         ON i.ProductId = p.id

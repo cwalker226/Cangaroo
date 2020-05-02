@@ -11,68 +11,71 @@ $(document).ready(() => {
 
   // Does PUTs to update the assist and inventory records. If successful, we reload the page
   // Otherwise we log any errors
-  function confirmAssist(id, familySize) {
-    $.ajax({
-      url: '/api/assistance',
-      type: 'PUT',
-      data: `id=${id}&confirmed=true`,
-      success: () => {
-        console.log(`Confirmed assist with id ${id} and size ${familySize}`);
-        const nutrientClassArr = ['carbohydrates', 'fats', 'fiber', 'minerals', 'protein', 'vitamins', 'water'];
-        nutrientClassArr.forEach((nutrientClass) => {
-          // console.log(`Now estimating available inventory for nutrient class ${nutrientClass}`);
-          $.ajax({
-            url: `/api/inventory/assist/${nutrientClass}/${familySize}`,
-            type: 'GET',
-            success: (result) => {
-              // console.log(`We got a result back for ${nutrientClass}: ${result}`);
-              const inventoryQuantity = result.quantity;
-              if (inventoryQuantity > 0) {
-                const AssistId = id;
-                // console.log(`non zero result "${result.quantity}" on quantity, make new basket`);
-                const servingsNeeded = familySize * 7;
-                const servingsPerQuantity = result.productservings;
-                const quantityNeeded = Math.round(servingsNeeded / servingsPerQuantity);
-                const ProductId = result.productid;
+  function confirmAssist(AssistId, familySize) {
+    console.log(`Confirming assist with id ${AssistId} and size ${familySize}`);
 
-                // console.log(`size will be ${quantity}`);
-                // console.log(`this is for productId ${ProductId}`);
+    let basketCounter = 0;
+    const nutrientClassArr = ['carbohydrates', 'fats', 'fiber', 'minerals', 'protein', 'vitamins', 'water'];
+    nutrientClassArr.forEach((nutrientClass) => {
+      console.log(`Now estimating available inventory for nutrient class ${nutrientClass}`);
+      $.ajax({
+        url: `/api/inventory/assist/${nutrientClass}/${familySize}`,
+        type: 'GET',
+        success: (result) => {
+          console.log(`We got a result back for ${nutrientClass}: ${result}`);
+          const inventoryQuantity = result.quantity;
+          if (inventoryQuantity > 0) {
+            console.log(`non zero result "${result.quantity}" on quantity, make new basket`);
+            const servingsNeeded = familySize * 7;
+            console.log(`servingsNeeded: ${servingsNeeded}`);
+            const servingsPerQuantity = result.productservings;
+            const quantityNeeded = Math.ceil(servingsNeeded / servingsPerQuantity);
+            const ProductId = result.productid;
 
-                /* Make a basket and decrement inventory */
-                const newQuantity = result.quantity - quantityNeeded;
-                if (newQuantity < 0) {
-                  // console.log('abort, new quantity under 0, return and go to next basket');
-                  return;
-                }
-                // console.log(`new quantity: ${newQuantity}`);
+            console.log(`size will be ${quantityNeeded}`);
+            console.log(`this is for productId ${ProductId}`);
 
-                $.ajax({
-                  url: '/api/inventory',
-                  type: 'PUT',
-                  data: `ProductId=${ProductId}&quantity=${newQuantity}`,
-                  success: () => {
-                    // console.log(`inventory changed to ${newQuantity}, create the basket record`);
-                    $.post('/api/basket', {
-                      AssistId,
-                      ProductId,
-                      quantityNeeded,
-                    }).then(() => {
-                      // console.log(`Created new basket for assist ${id}`);
-                    });
-                  },
+            /* Make a basket and decrement inventory */
+            const newQuantity = result.quantity - quantityNeeded;
+            if (newQuantity < 0) {
+              console.log('abort, new quantity under 0, return and go to next basket');
+              return;
+            }
+            console.log(`new quantity: ${newQuantity}`);
+
+            $.ajax({
+              url: '/api/inventory',
+              type: 'PUT',
+              data: `ProductId=${ProductId}&quantity=${newQuantity}`,
+              success: () => {
+                // console.log(`inventory changed to ${newQuantity}, create the basket record`);
+                $.post('/api/basket', {
+                  AssistId,
+                  ProductId,
+                  quantity: quantityNeeded,
+                }).then(() => {
+                  basketCounter += 1;
+                  // console.log(`Created new basket for assist ${id}`);
                 });
-              } else {
-                // console.log(result);
-                // console.log(`there is actually zero for nutrient class ${nutrientClass}`);
-              }
-              window.location.reload();
-            },
-          }).catch((err) => {
-            console.log(`Error for ${nutrientClass}: ${err}`);
-          });
-        });
-      },
-    }).catch(handleAssistErr);
+              },
+            }).catch(handleAssistErr);
+            const alertNewBasket = () => {
+              const basketEl = $('p');
+              const basketMsg = `New basket number ${basketCounter} created for UserEmail AssistId ${AssistId}, ProductId ${ProductId}, quantity ${quantityNeeded}`;
+              console.log(basketMsg);
+              basketEl.text(basketMsg);
+              // $('#alert .msg').text(basketMsg);
+              $('#alert .msg').append(basketEl);
+              $('#alert').fadeIn(500);
+            };
+            alertNewBasket(AssistId, ProductId);
+            // window.location.reload();
+          }
+          /* else there is actually zero for this nutrient class */
+        },
+      }).catch(handleAssistErr);
+      return console.log('failed to find enough to fill this basket, on to the next basket');
+    });
   }
 
   // When the Confirm Request button is clicked, get the ID of the assist from the button
