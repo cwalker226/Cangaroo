@@ -5,6 +5,7 @@ module.exports = {
     return queryInterface.bulkInsert('Assists', [{
       UserEmail: 'c1@c.com',
       size: 1,
+      confirmed: true,
       createdAt: new Date(),
       updatedAt: new Date(),
     },
