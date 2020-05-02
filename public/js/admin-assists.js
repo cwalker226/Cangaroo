@@ -27,8 +27,8 @@ $(document).ready(() => {
               if (result.quantity > 0) {
                 console.log(`we got a non zero result "${result.quantity}" on quantity for a basket, let's make a new basket`);
               }
-              console.log(result);
-              // window.location.reload();
+              // console.log(result);
+              window.location.reload();
             },
           });
         });
