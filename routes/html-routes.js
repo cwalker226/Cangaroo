@@ -56,8 +56,6 @@ module.exports = (express) => {
       const confirmedAssistance = assistance.filter((item) => item.confirmed);
       const unconfirmedAssistance = assistance.filter((item) => !item.confirmed);
       const UserEmail = req.user.email;
-      console.log(confirmedAssistance);
-      console.log(`unconfirmed: ${unconfirmedAssistance}`);
       res.render('clients', {
         assistance,
         confirmedAssistance,
@@ -161,7 +159,6 @@ module.exports = (express) => {
         as: 'basket',
       }],
     }).then((allAssists) => {
-      console.log(`allAssists = ${allAssists}`);
       const userType = 'admin';
       const assists = allAssists.map((item) => {
         const assistPeople = {};
@@ -175,7 +172,6 @@ module.exports = (express) => {
 
       const confirmedAssists = assists.filter((item) => item.confirmed);
       const unconfirmedAssists = assists.filter((item) => !item.confirmed);
-      console.log(unconfirmedAssists);
       res.render('admin-assists', {
         assists,
         confirmedAssists,
