@@ -8,6 +8,7 @@
 * [Usage](#usage)
 * [Demo](#demo)
 * [Technologies](#technologies)
+* [Authors](#authors)
 * [Contributions](#contributions)
 
 ## About
@@ -110,6 +111,10 @@ A demo of the app can be found here:
 * Roger the "Cangaroo"
 
 ![alt text](https://i.ytimg.com/vi/KeKoEQ0ZxS0/hqdefault.jpg "Roger")
+
+## Authors
+
+This software was created by Andy J Chen, Ian Johnson, Max Lemieux and Corey Walker.
 
 ## Contributions
 
