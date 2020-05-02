@@ -10,16 +10,16 @@ const isAdmin = require('../../config/middleware/isAdmin');
 // Routes
 // =============================================================
 module.exports = (app) => {
-  // GET route for getting all of the assistance given
-  app.get('/api/assistance', (req, res) => {
-    db.Assist.findAll({}).then((result) => {
+  // GET route for getting all of the baskets
+  app.get('/api/basket', (req, res) => {
+    db.Basket.findAll({}).then((result) => {
       res.json(result);
     });
   });
 
-  // Get route for retrieving a single assist
-  app.get('/api/assistance/:id', (req, res) => {
-    db.Assist.findOne({
+  // Get route for retrieving a single Basket
+  app.get('/api/basket/:id', (req, res) => {
+    db.Basket.findOne({
       where: {
         id: req.params.id,
       },
@@ -28,16 +28,16 @@ module.exports = (app) => {
     });
   });
 
-  // POST route for saving a new assist
-  app.post('/api/assistance', (req, res) => {
-    db.Assist.create(req.body).then((result) => {
+  // POST route for saving a new Basket
+  app.post('/api/basket', (req, res) => {
+    db.Basket.create(req.body).then((result) => {
       res.json(result);
     });
   });
 
-  // DELETE route for deleting assist
-  app.delete('/api/assistance/:id', isAdmin, (req, res) => {
-    db.Assist.destroy({
+  // DELETE route for deleting Basket
+  app.delete('/api/basket/:id', isAdmin, (req, res) => {
+    db.Basket.destroy({
       where: {
         id: req.params.id,
       },
@@ -46,9 +46,9 @@ module.exports = (app) => {
     });
   });
 
-  // PUT route for updating assist
-  app.put('/api/assistance', isAdmin, (req, res) => {
-    db.Assist.update(
+  // PUT route for updating Basket
+  app.put('/api/basket', isAdmin, (req, res) => {
+    db.Basket.update(
       req.body,
       {
         where: {

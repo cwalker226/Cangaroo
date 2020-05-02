@@ -39,6 +39,7 @@ $(document).ready(() => {
     };
 
     if (!userData.email || !userData.password) {
+      console.log('missing email or password');
       return;
     }
 

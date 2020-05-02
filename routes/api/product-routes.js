@@ -8,6 +8,9 @@
 // Requiring our models
 const db = require('../../models');
 
+// Middleware so that only Admins can do admin things
+const isAdmin = require('../../config/middleware/isAdmin');
+
 // Routes
 // =============================================================
 module.exports = (app) => {
@@ -30,7 +33,7 @@ module.exports = (app) => {
   });
 
   // POST route for saving a new product
-  app.post('/api/products', (req, res) => {
+  app.post('/api/products', isAdmin, (req, res) => {
     db.Product.create(req.body).then((dbProduct) => {
       console.log(`New product ID: ${dbProduct.id}`);
       const ProductId = dbProduct.id;
@@ -45,7 +48,7 @@ module.exports = (app) => {
   });
 
   // DELETE route for deleting products
-  app.delete('/api/products/:id', (req, res) => {
+  app.delete('/api/products/:id', isAdmin, (req, res) => {
     db.Product.destroy({
       where: {
         id: req.params.id,
@@ -56,7 +59,7 @@ module.exports = (app) => {
   });
 
   // PUT route for updating products
-  app.put('/api/products', (req, res) => {
+  app.put('/api/products', isAdmin, (req, res) => {
     db.Product.update(
       req.body,
       {

@@ -51,9 +51,11 @@ module.exports = (express) => {
     db.Assist.findAll({
       where: {
         UserEmail: req.user.email,
+        confirmed: true,
       },
     }).then((assistance) => {
-      res.render('clients', { assistance });
+      const UserEmail = req.user.email;
+      res.render('clients', { assistance, UserEmail });
     });
   });
   router.get('/members/donors', isDonor, (req, res) => {
@@ -151,16 +153,27 @@ module.exports = (express) => {
         as: 'basket',
       }],
     }).then((allAssists) => {
+      console.log(`allAssists = ${allAssists}`);
       const userType = 'admin';
       const assists = allAssists.map((item) => {
         const assistPeople = {};
         assistPeople.id = item.dataValues.id;
-        assistPeople.name = item.dataValues.UserEmail;
-        assistPeople.basketDate = item.dataValues.basket[0].dataValues.createdAt;
+        assistPeople.UserEmail = item.dataValues.UserEmail;
+        assistPeople.createdAt = item.dataValues.createdAt;
+        assistPeople.confirmed = item.dataValues.confirmed;
+        assistPeople.size = item.dataValues.size;
         return assistPeople;
       });
-      console.log(assists);
-      res.render('admin-assists', { assists, userType });
+
+      const confirmedAssists = assists.filter((item) => item.confirmed);
+      const unconfirmedAssists = assists.filter((item) => !item.confirmed);
+      console.log(unconfirmedAssists);
+      res.render('admin-assists', {
+        assists,
+        confirmedAssists,
+        unconfirmedAssists,
+        userType,
+      });
     });
   });
   return router;

@@ -4,6 +4,7 @@ module.exports = {
   up(queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Assists', [{
       UserEmail: 'c1@c.com',
+      size: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     },

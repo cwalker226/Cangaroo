@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     confirmed: {
       type: DataTypes.BOOLEAN,
-      default: false,
+      defaultValue: false,
     },
   });
   Donation.associate = (models) => {
