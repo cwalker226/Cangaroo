@@ -75,7 +75,7 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Date</th>
+            <th>Donation Date</th>
             <th>Product</th>
             <th>Quantity</th>
           </tr>
@@ -97,7 +97,7 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Date</th>
+            <th>Accepted Date</th>
             <th>Product</th>
             <th>Quantity</th>
           </tr>
@@ -105,7 +105,7 @@
         {{#each confirmedDonations}}
         <tr>
           <td>{{this.dataValues.id}}</td>
-          <td>{{this.dataValues.createdAt}}</td>
+          <td>{{this.dataValues.updatedAt}}</td>
           <td>{{this.dataValues.product.dataValues.name}} ({{this.dataValues.product.dataValues.servings}} servings {{this.dataValues.product.dataValues.nutrient_class}})</td>
           <td>{{this.dataValues.quantity}}</td>
         </tr>

@@ -91,3 +91,17 @@ form.login {
 #classify{
   color: black;
 }
+
+.nav-a{
+  padding-top: 15px;
+  padding-right: 6px;
+  
+}
+
+.navbar-a{
+  color: black;
+}
+
+#navbarBasicExample.navbar-menu.is-active{
+  padding-left: 20%;
+}
