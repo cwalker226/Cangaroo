@@ -5,6 +5,9 @@ $(document).ready(() => {
   const assistForm = $('form#basket-form');
   const sizeInput = $('input#size-input');
   const emailInput = $('input#UserEmail');
+  const productBtn = $('button.product');
+  const listBox = $('.box');
+  const productList = $('.productList');
 
   function handleAssistErr(err) {
     $('#alert .msg').text(err.responseJSON);
@@ -48,5 +51,20 @@ $(document).ready(() => {
     // If we have a product and quantity, run the newDonation function
     newAssist(assistData.UserEmail, assistData.size);
     sizeInput.val('');
+  });
+
+  productBtn.on('click', function (event) {
+    event.preventDefault();
+    const assistID = $(this).data('assistid');
+    if (listBox.hasClass('listBoxHide')) {
+      listBox.removeClass('listBoxHide');
+    }
+    productList.empty();
+    $.get(`/api/basket/assist/${assistID}`).then((products) => {
+      $.each(products, (index, value) => {
+        const product = $('<li>').text(`${value.product.name} Qty: ${value.quantity}`);
+        productList.append(product);
+      });
+    });
   });
 });

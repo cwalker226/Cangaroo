@@ -44,10 +44,10 @@ app.use(htmlRoutes);
 
 require('./routes/api/assist-routes')(app);
 require('./routes/api/basket-routes')(app);
-require('./routes/api/user-routes.js')(app);
-require('./routes/api/product-routes.js')(app);
 require('./routes/api/donate-routes.js')(app);
 require('./routes/api/inventory-routes.js')(app);
+require('./routes/api/product-routes.js')(app);
+require('./routes/api/user-routes.js')(app);
 
 // Syncing our database and logging a message to the user upon success
 db.sequelize.sync().then(() => {
