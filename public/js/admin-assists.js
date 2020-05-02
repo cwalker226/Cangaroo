@@ -19,56 +19,57 @@ $(document).ready(() => {
         url: `/api/inventory/assist/${nutrientClass}/${familySize}`,
         type: 'GET',
         success: (result) => {
-          const inventoryQuantity = result.quantity;
-          if (inventoryQuantity > 0) {
-            const servingsNeeded = familySize * 7;
-            const servingsPerQuantity = result.productservings;
-            let quantityNeeded = Math.ceil(servingsNeeded / servingsPerQuantity);
-            const ProductId = result.productid;
+          console.log(`inventory assist result is ${result}`);
+          console.log(`its length is ${result.length}`);
+          if (result.length > 0) {
+            const inventoryQuantity = result[0].quantity;
+            if (inventoryQuantity > 0) {
+              const servingsNeeded = familySize * 7;
+              const servingsPerQuantity = result.productservings;
+              let quantityNeeded = Math.ceil(servingsNeeded / servingsPerQuantity);
+              const ProductId = result.productid;
 
-            /* Make a basket and decrement inventory */
-            let newQuantity = result.quantity - quantityNeeded;
-            if (newQuantity < 0) {
-              quantityNeeded = result.quantity;
-              newQuantity = 0;
-            }
+              /* Make a basket and decrement inventory */
+              let newQuantity = result.quantity - quantityNeeded;
+              if (newQuantity < 0) {
+                quantityNeeded = result.quantity;
+                newQuantity = 0;
+              }
 
-            $.ajax({
-              url: '/api/inventory',
-              type: 'PUT',
-              data: `ProductId=${ProductId}&quantity=${newQuantity}`,
-              success: () => {
-                $.post('/api/basket', {
-                  AssistId,
-                  ProductId,
-                  quantity: quantityNeeded,
-                }).then(() => {
-                  /* Confirm the assist if we have a basket for this assist ID */
-                  if (index === array.length) {
-                    $.ajax({
-                      url: '/api/assistance',
-                      type: 'PUT',
-                      data: `id=${AssistId}&confirmed=true`,
-                      success: () => {
-                        console.log('window reload assistance');
-                        window.location.reload();
-                      },
-                    }).catch(console.log('assistance'));
-                  } else {
-                    /* Count baskets, then show message if none */
-                    const assistBasketUrl = `/api/basket/assist/${AssistId}`;
-                    $.get(assistBasketUrl).then((results) => {
-                      if (results.length === 0) {
+              $.ajax({
+                url: '/api/inventory',
+                type: 'PUT',
+                data: `ProductId=${ProductId}&quantity=${newQuantity}`,
+                success: () => {
+                  $.post('/api/basket', {
+                    AssistId,
+                    ProductId,
+                    quantity: quantityNeeded,
+                  }).then(() => {
+                    /* Confirm the assist if we have a basket for this assist ID */
+                    if (index === array.length) {
+                      $.ajax({
+                        url: '/api/assistance',
+                        type: 'PUT',
+                        data: `id=${AssistId}&confirmed=true`,
+                        success: () => {
+                          window.location.reload();
+                        },
+                      }).catch(console.log('assistance'));
+                    } else {
+                      /* Count baskets, then show message if none */
+                      const assistBasketUrl = `/api/basket/assist/${AssistId}`;
+                      $.get(assistBasketUrl).then().catch(() => {
                         console.log('called basket by assist api');
                         const basketMsg = `Not confirmed - could not create any baskets for AssistId ${AssistId} because all nutrient classes are too low on inventory. Please add some donations to your inventory.`;
                         $('#alert .msg').text(basketMsg);
                         $('#alert').fadeIn(500);
-                      }
-                    }).catch(console.log('basket assist'));
-                  }
-                }).catch(console.log('basket'));
-              },
-            }).catch(console.log('inventory'));
+                      });
+                    }
+                  }).catch(console.log('basket'));
+                },
+              }).catch(console.log('inventory'));
+            }
           }
         },
       }).catch((err) => console.log('inventory assist', err));

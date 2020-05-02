@@ -58,25 +58,7 @@ module.exports = (app) => {
       type: QueryTypes.SELECT,
     }).then((dbInventory) => {
       console.log(`dbInventory ${dbInventory}`);
-      console.log(`length ${dbInventory.length}`);
-      if (dbInventory.length === 0) {
-        const remainingInventorySql = `SELECT i.quantity, p.name, p.id AS productid, p.servings AS productservings
-                   FROM Inventories AS i 
-                        INNER JOIN Products AS p 
-                        ON i.ProductId = p.id
-                            AND i.quantity >= 1
-                            AND p.nutrient_class = :nutrientClass 
-                        ORDER BY RAND() 
-                        LIMIT 1;`;
-        db.sequelize.query(remainingInventorySql, {
-          replacements: { nutrientClass },
-          type: QueryTypes.SELECT,
-        }).then((remainingInventory) => {
-          return res.json(remainingInventory[0]);
-        });
-      } else {
-        return res.json(dbInventory[0]);
-      }
+      res.json(dbInventory);
     });
   });
 
