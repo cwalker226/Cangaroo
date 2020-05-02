@@ -45,7 +45,6 @@ module.exports = (app) => {
   app.get('/api/inventory/assist/:nutrientClass/:familySize', isAdmin, (req, res) => {
     const { familySize, nutrientClass } = req.params;
     const assistSize = familySize * 7;
-    console.log(`request inventory for ${nutrientClass}, ${assistSize}`);
     const sql = `SELECT i.quantity, p.name, p.id AS productid, p.servings AS productservings
                    FROM Inventories AS i 
                         INNER JOIN Products AS p 
@@ -58,7 +57,8 @@ module.exports = (app) => {
       replacements: { assistSize, nutrientClass },
       type: QueryTypes.SELECT,
     }).then((dbInventory) => {
-      // console.log(dbInventory);
+      console.log(`dbInventory ${dbInventory}`);
+      console.log(`length ${dbInventory.length}`);
       if (dbInventory.length === 0) {
         const remainingInventorySql = `SELECT i.quantity, p.name, p.id AS productid, p.servings AS productservings
                    FROM Inventories AS i 
@@ -68,12 +68,11 @@ module.exports = (app) => {
                             AND p.nutrient_class = :nutrientClass 
                         ORDER BY RAND() 
                         LIMIT 1;`;
-        // console.log('no inventory for that nutrient class');
         db.sequelize.query(remainingInventorySql, {
           replacements: { nutrientClass },
           type: QueryTypes.SELECT,
-        }).then((resultSmaller) => {
-          console.log(resultSmaller[0]);
+        }).then((remainingInventory) => {
+          //res.json(remainingInventory[0]);
         });
       }
       return res.json(dbInventory[0]);
