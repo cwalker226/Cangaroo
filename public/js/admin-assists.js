@@ -11,38 +11,40 @@ $(document).ready(() => {
 
   // Does PUTs to update the assist and inventory records. If successful, we reload the page
   // Otherwise we log any errors
-  function confirmAssist(id, size) {
+  function confirmAssist(id, familySize) {
     $.ajax({
       url: '/api/assistance',
       type: 'PUT',
       data: `id=${id}&confirmed=true`,
       success: () => {
-        // console.log(`Confirmed assist with id ${id}`);
+        console.log(`Confirmed assist with id ${id} and size ${familySize}`);
         const nutrientClassArr = ['carbohydrates', 'fats', 'fiber', 'minerals', 'protein', 'vitamins', 'water'];
         nutrientClassArr.forEach((nutrientClass) => {
           // console.log(`Now estimating available inventory for nutrient class ${nutrientClass}`);
           $.ajax({
-            url: `/api/inventory/assist/${nutrientClass}/${size}`,
+            url: `/api/inventory/assist/${nutrientClass}/${familySize}`,
             type: 'GET',
             success: (result) => {
               // console.log(`We got a result back for ${nutrientClass}: ${result}`);
-              // console.log(result);
-              if (result.quantity > 0) {
+              const inventoryQuantity = result.quantity;
+              if (inventoryQuantity > 0) {
                 const AssistId = id;
                 // console.log(`non zero result "${result.quantity}" on quantity, make new basket`);
-                const quantity = size * 7;
+                const servingsNeeded = familySize * 7;
+                const servingsPerQuantity = result.productservings;
+                const quantityNeeded = Math.round(servingsNeeded / servingsPerQuantity);
                 const ProductId = result.productid;
 
                 // console.log(`size will be ${quantity}`);
                 // console.log(`this is for productId ${ProductId}`);
 
                 /* Make a basket and decrement inventory */
-                const newQuantity = result.quantity - quantity;
+                const newQuantity = result.quantity - quantityNeeded;
                 if (newQuantity < 0) {
                   // console.log('abort, new quantity under 0, return and go to next basket');
                   return;
                 }
-                console.log(`new quantity: ${newQuantity}`);
+                // console.log(`new quantity: ${newQuantity}`);
 
                 $.ajax({
                   url: '/api/inventory',
@@ -53,12 +55,12 @@ $(document).ready(() => {
                     $.post('/api/basket', {
                       AssistId,
                       ProductId,
-                      quantity,
+                      quantityNeeded,
                     }).then(() => {
                       // console.log(`Created new basket for assist ${id}`);
-                    }).catch((err) => console.log(err));
+                    });
                   },
-                }).catch((err) => console.log(err));
+                });
               } else {
                 // console.log(result);
                 // console.log(`there is actually zero for nutrient class ${nutrientClass}`);
