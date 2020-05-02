@@ -23,6 +23,8 @@ Admins can approve donations, or approve client assistance requests as well as v
 
 ## Installation
 
+### Get the app
+
 Clone the repo:
 
 `git clone https://github.com/cwalker226/Cangaroo`
@@ -32,6 +34,8 @@ Install dependencies:
 `cd Cangaroo`
 
 `npm i`
+
+### Set up your environment
 
 Create a file for your database connection information:
 
@@ -51,7 +55,11 @@ If you are running on Heroku, add this Heroku environment variable config to you
 
 `NODE_ENV=production`
 
+### Optional: Configure Heroku
+
 Add a new JawsDB MySQL addon to your Heroku app. This creates the `JAWSDB_URL` environment variable config for your app on Heroku. On your development system, to connect to the production database you can add the same `JAWSDB_URL` environment variable to your .env file and control its use with `NODE_ENV=production` in your local .env. The default NODE_ENV is development.
+
+### Create database
 
 Create the database by running the following command using MySQL Workbench or other MySQL client:
 
@@ -90,5 +98,7 @@ A demo of the app can be found here:
 * ![alt text](https://i.ytimg.com/vi/KeKoEQ0ZxS0/hqdefault.jpg "Roger")
 
 ## Contributions
+
+This software is licensed under the MIT License.
 
 We welcome contributions. Several future development ideas have been recorded as "enhancement" issues.
