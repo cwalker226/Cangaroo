@@ -51,11 +51,19 @@ module.exports = (express) => {
     db.Assist.findAll({
       where: {
         UserEmail: req.user.email,
-        confirmed: true,
       },
     }).then((assistance) => {
+      const confirmedAssistance = assistance.filter((item) => item.confirmed);
+      const unconfirmedAssistance = assistance.filter((item) => !item.confirmed);
       const UserEmail = req.user.email;
-      res.render('clients', { assistance, UserEmail });
+      console.log(confirmedAssistance);
+      console.log(`unconfirmed: ${unconfirmedAssistance}`);
+      res.render('clients', {
+        assistance,
+        confirmedAssistance,
+        unconfirmedAssistance,
+        UserEmail,
+      });
     });
   });
   router.get('/members/donors', isDonor, (req, res) => {

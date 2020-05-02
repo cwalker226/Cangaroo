@@ -43,6 +43,7 @@ const htmlRoutes = require('./routes/html-routes.js')(express);
 app.use(htmlRoutes);
 
 require('./routes/api/assist-routes')(app);
+require('./routes/api/basket-routes')(app);
 require('./routes/api/user-routes.js')(app);
 require('./routes/api/product-routes.js')(app);
 require('./routes/api/donate-routes.js')(app);
