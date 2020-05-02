@@ -35,6 +35,46 @@ form.login {
   left: 17vw;
 }
 
+#textLogin{
+  background-color: rgba(32, 32, 32, 0.884);
+  text-align: center;
+  color: cornsilk;
+  border: rgb(136, 161, 136) 6px ridge;
+  border-radius: 12px;
+  font-size: 25px;
+  font-family: Arial;
+  font-weight: 700;
+  margin: 0px 110px 0px 110px;
+  padding: 5px 0px 5px 0px;
+
+}
+
+#containerLogin{
+  background-color: lightgray;
+  padding: 30px;
+  border-radius: 16px;
+  border: rgb(100, 131, 100) 6px ridge;
+}
+
+.label{
+  font-size: 20px;
+  color: rgba(32, 32, 32, 0.884);
+  
+}
+
+#email-input, #password-input{
+  border-radius: 10px;
+  border: black 2px ridge;
+}
+
+.login-btn{
+  margin-top: 19px;
+}
+
+.navbar{
+  border-bottom: rgb(100, 131, 100) 4px solid;
+  background-color: lightgray;
+}
 .form-inputTxt {
   width: 45%;
 }
