@@ -35,7 +35,7 @@ form.login {
   left: 17vw;
 }
 
-#textLogin{
+.page-title{
   background-color: rgba(32, 32, 32, 0.884);
   text-align: center;
   color: cornsilk;
@@ -49,11 +49,12 @@ form.login {
 
 }
 
-#containerLogin{
+#containerLogin, #containerSignup{
   background-color: lightgray;
   padding: 30px;
   border-radius: 16px;
   border: rgb(100, 131, 100) 6px ridge;
+  margin-top: 60px;
 }
 
 .label{
@@ -67,7 +68,7 @@ form.login {
   border: black 2px ridge;
 }
 
-.login-btn{
+.push-btn{
   margin-top: 19px;
 }
 
@@ -81,4 +82,8 @@ form.login {
 
 .form-numStep {
   width: 8%;
+}
+
+#classify{
+  color: black;
 }
