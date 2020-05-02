@@ -8,6 +8,7 @@
 * [Usage](#usage)
 * [Demo](#demo)
 * [Technologies](#technologies)
+* [Contributions](#contributions)
 
 ## About
 Cangaroo is a Food Bank inventory management system, created with Node/Express on a cloud hosted MySQL backend. The front end is built with Handlebars templating and Bulma CSS, and email addresses used for registration are verified by a third party.
@@ -46,12 +47,23 @@ Open the file `.env` with your favorite editor and add the connection informatio
 
 `DB_NAME=cangaroo_db`
 
-Create the database using MySQL Workbench or other client by running the following command:
+If you are running on Heroku, add this Heroku environment variable config to your app:
+
+`NODE_ENV=production`
+
+Add a new JawsDB MySQL addon to your Heroku app. This creates the `JAWSDB_URL` environment variable config for your app on Heroku. On your development system, to connect to the production database you can add the same `JAWSDB_URL` environment variable to your .env file and control its use with `NODE_ENV=production` in your local .env. The default NODE_ENV is development.
+
+Create the database by running the following command using MySQL Workbench or other MySQL client:
 
 `CREATE DATABASE cangaroo_db;`
 
-Seed the database with:
+If you're seeding Heroku's database, you need to set your NODE_ENV=production in .env as above.
 
+Seed the database with:
+`sequelize db:seed --seed 00_essentials-products-seed-file.js`
+`sequelize db:seed --seed 01_essentials-inventories-seed-file.js`
+
+Or for testing:
 `sequelize db:seed:all`
 
 ## Usage
@@ -76,3 +88,7 @@ A demo of the app can be found here:
 * Bulma
 * Verifalia
 * ![alt text](https://i.ytimg.com/vi/KeKoEQ0ZxS0/hqdefault.jpg "Roger")
+
+## Contributions
+
+We welcome contributions. Several future development ideas have been recorded as "enhancement" issues.
