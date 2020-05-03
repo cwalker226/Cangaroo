@@ -25,6 +25,7 @@
             <th>Quantity</th>
             <th>Nutrient Class</th>
             <th>Total Servings</th>
+            <th>Date</th>
             <th>Confirmed</th>
           </tr>
         </thead>
@@ -37,6 +38,7 @@
           <td>{{this.quantity}}</td>
           <td>{{this.nutrient_class}}</td>
           <td>{{this.total_servings}}</td>
+          <td>{{this.updatedAt}}</td>
           <td>
             <button class="confirm button is-success is-small" data-donationid="{{this.id}}" data-productid="{{this.productId}}" data-quantity="{{this.quantity}}">
             Confirm Donation
@@ -61,6 +63,7 @@
             <th>Quantity</th>
             <th>Nutrient Class</th>
             <th>Total Servings</th>
+            <th>Date</th>
             <th>Confirmed</th>
           </tr>
         </thead>
@@ -73,6 +76,7 @@
           <td>{{this.quantity}}</td>
           <td>{{this.nutrient_class}}</td>
           <td>{{this.total_servings}}</td>
+          <td>{{this.updatedAt}}</td>
           <td>Yes</td>
         </tr>
         {{/each}}
