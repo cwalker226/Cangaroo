@@ -10,6 +10,11 @@ $(document).ready(() => {
     $('#alert').fadeIn(500);
   }
 
+  /* Close the login error window when the 'x' is clicked */
+  $('.delete').on('click', (event) => {
+    $(event.currentTarget).parent('div').fadeOut();
+  });
+
   // Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors
   function signUpUser(email, password, userType) {

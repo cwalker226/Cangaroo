@@ -10,8 +10,8 @@ $(document).ready(() => {
   }
 
   /* Close the error window when the 'x' is clicked */
-  $('.delete').on('click', function () {
-    $(this).parent('div').fadeOut();
+  $('.delete').on('click', (event) => {
+    $(event.currentTarget).parent('div').fadeOut();
   });
 
 

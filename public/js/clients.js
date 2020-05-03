@@ -13,6 +13,10 @@ $(document).ready(() => {
     $('#alert .msg').text(err.responseJSON);
     $('#alert').fadeIn(500);
   }
+  /* Close the error window when the 'x' is clicked */
+  $('.delete').on('click', (event) => {
+    $(event.currentTarget).parent('div').fadeOut();
+  });
 
   // Does a post to the 'create assist' route. If successful, the page is reloaded
   // Otherwise we log any errors
@@ -48,14 +52,14 @@ $(document).ready(() => {
     if (!assistData.size || !assistData.UserEmail) {
       return;
     }
-    // If we have a product and quantity, run the newDonation function
+    /* If we have a product and quantity, run the newDonation function */
     newAssist(assistData.UserEmail, assistData.size);
     sizeInput.val('');
   });
 
-  productBtn.on('click', function (event) {
+  productBtn.on('click', (event) => {
     event.preventDefault();
-    const assistID = $(this).data('assistid');
+    const assistID = $(event.currentTarget).data('assistid');
     if (listBox.hasClass('listBoxHide')) {
       listBox.removeClass('listBoxHide');
     }
