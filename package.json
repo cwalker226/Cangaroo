@@ -1,7 +1,11 @@
 {
   "name": "cangaroo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Food Bank inventory management system",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cwalker226/Cangaroo.git"
+  },
   "main": "server.js",
   "scripts": {
     "test": "npm run lint",
