@@ -3,6 +3,8 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config(); /* eslint global-require: "off" */
 }
 
+const compression = require('compression');
+
 // Creating express app and configuring middleware needed for authentication
 const express = require('express');
 const session = require('express-session');
@@ -11,6 +13,9 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
+
+// Image compression
+app.use(compression());
 
 // Set Handlebars.
 const exphbs = require('express-handlebars');
