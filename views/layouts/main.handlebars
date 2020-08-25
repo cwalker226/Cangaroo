@@ -6,13 +6,14 @@
     <script src="/js/ext/jquery.min.js"></script>
     <link rel="stylesheet" href="/stylesheets/ext/bulma.min.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
+    
     <title>Cangaroo Inventory Management</title>
 </head>
 <body>
 
 <script>
   $(document).ready(function() {
-
+  const isAuth = require('../../config/middleware/isAuthenticated');
   // Check for click events on the navbar burger icon
   $(".navbar-burger").click(function() {
 
@@ -47,9 +48,13 @@
               <a class="navbar-a" href="/admin/assists">Assists</a>&nbsp;|&nbsp;
               <a class="navbar-a" href="/admin/donations">Donations</a>&nbsp;|&nbsp;
               {{/is}}
+              {{#is userType "in" "admin, donor, user"}}
               <a class="navbar-a" href="/logout">
                 Logout
               </a>
+              {{else}}
+              sfsfsdfs
+              {{/is}}
               </div>
             </div>
     </div>
