@@ -169,7 +169,7 @@ module.exports = (express) => {
         const assistPeople = {};
         assistPeople.id = item.dataValues.id;
         assistPeople.UserEmail = item.dataValues.UserEmail;
-        assistPeople.createdAt = item.dataValues.createdAt;
+        assistPeople.createdAt = new Date(item.dataValues.createdAt).toDateString();
         assistPeople.updatedAt = item.dataValues.updatedAt;
         assistPeople.confirmed = item.dataValues.confirmed;
         assistPeople.size = item.dataValues.size;
