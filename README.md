@@ -108,9 +108,6 @@ A demo of the app can be found here:
 * Handlebars.js
 * Bulma
 * Verifalia
-* Roger the "Cangaroo"
-
-![alt text](https://i.ytimg.com/vi/KeKoEQ0ZxS0/hqdefault.jpg "Roger")
 
 ## Authors
 
