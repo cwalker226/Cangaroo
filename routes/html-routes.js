@@ -129,6 +129,7 @@ module.exports = (express) => {
       }],
     }).then((allDonations) => {
       const userType = 'admin';
+      // copy this part of the code to donor front end above to filter the date
       const donations = allDonations.map((item) => {
         const donationRecord = {};
         donationRecord.id = item.dataValues.id;
