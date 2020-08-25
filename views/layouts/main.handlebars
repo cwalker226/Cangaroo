@@ -48,13 +48,19 @@
               <a class="navbar-a" href="/admin/assists">Assists</a>&nbsp;|&nbsp;
               <a class="navbar-a" href="/admin/donations">Donations</a>&nbsp;|&nbsp;
               {{/is}}
-              {{#is userType "in" "admin, donor, user"}}
-              <a class="navbar-a" href="/logout">
-                Logout
-              </a>
+              {{#if userType}}
+                <a class="navbar-a" href="/logout">
+                  Logout
+                </a>
               {{else}}
-              sfsfsdfs
-              {{/is}}
+                <a class="navbar-a" href="/login">
+                  Login
+                </a>
+                &nbsp;|&nbsp;
+                <a class="navbar-a" href="/signup">
+                  Sign Up
+                </a>
+              {{/if}}
               </div>
             </div>
     </div>
