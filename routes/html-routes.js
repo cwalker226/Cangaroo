@@ -129,6 +129,7 @@ module.exports = (express) => {
       }],
     }).then((allDonations) => {
       const userType = 'admin';
+      // copy this part of the code to donor front end above to filter the date
       const donations = allDonations.map((item) => {
         const donationRecord = {};
         donationRecord.id = item.dataValues.id;
@@ -139,7 +140,7 @@ module.exports = (express) => {
         donationRecord.nutrient_class = item.dataValues.product.nutrient_class;
         donationRecord.total_servings = item.dataValues.quantity * item.dataValues.product.servings;
         donationRecord.confirmed = item.dataValues.confirmed;
-        donationRecord.updatedAt = item.dataValues.updatedAt;
+        donationRecord.updatedAt = new Date(item.dataValues.updatedAt).toDateString();
         return donationRecord;
       });
       const confirmedDonations = donations.filter((item) => item.confirmed);
@@ -154,7 +155,7 @@ module.exports = (express) => {
     });
   });
 
-  router.get('/admin/assists', isAdmin, (req, res) => {
+  router.get('/admin/assistance', isAdmin, (req, res) => {
     db.Assist.findAll({
       include: [{
         model: db.User,
@@ -169,8 +170,8 @@ module.exports = (express) => {
         const assistPeople = {};
         assistPeople.id = item.dataValues.id;
         assistPeople.UserEmail = item.dataValues.UserEmail;
-        assistPeople.createdAt = item.dataValues.createdAt;
-        assistPeople.updatedAt = item.dataValues.updatedAt;
+        assistPeople.createdAt = new Date(item.dataValues.createdAt).toDateString();
+        assistPeople.updatedAt = new Date(item.dataValues.updatedAt).toDateString();
         assistPeople.confirmed = item.dataValues.confirmed;
         assistPeople.size = item.dataValues.size;
         return assistPeople;

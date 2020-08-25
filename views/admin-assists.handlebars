@@ -1,12 +1,15 @@
 <section class="section">
     <div class="container">
-      <h1 class="title is-1">Assistance Management</h3>
+      <h1 class="title is-1">Assistance Management</h1>
+      <h2 class="title is-2">Welcome <span class="member-name subtitle is-4"></span></h2>
+      
       {{#unless assists}}
-      <p>No assists yet.</p>
+      <p>No assistance requests yet.</p>
       {{/unless}}
 
       {{#if assists}}
       <p>Here is a list of all people we have assisted which are currently in the system.</p>
+      <hr>
       <div style="display: none" id="alert" class="notification is-information is-light">
         <button class="delete"></button>
         <span>Information:</span> <span class="msg">Could not confirm this donation - not enough inventory for any baskets!</span>
@@ -64,5 +67,5 @@
       {{/if}}
     </div>
 </section>
-
+<script type="text/javascript" src="/js/members.js"></script>
 <script type="text/javascript" src="/js/admin-assists.js"></script>
