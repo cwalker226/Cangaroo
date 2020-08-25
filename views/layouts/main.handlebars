@@ -6,13 +6,14 @@
     <script src="/js/ext/jquery.min.js"></script>
     <link rel="stylesheet" href="/stylesheets/ext/bulma.min.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
+    
     <title>Cangaroo Inventory Management</title>
 </head>
 <body>
 
 <script>
   $(document).ready(function() {
-
+  
   // Check for click events on the navbar burger icon
   $(".navbar-burger").click(function() {
 
@@ -39,7 +40,7 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-end">
-          <div class="navabr-item">
+          <div class="navbar-item">
             <div class="nav-a">
               {{#is userType 'admin'}}
               <a class="navbar-a" href="/admin/products">Products</a>&nbsp;|&nbsp;
@@ -47,9 +48,19 @@
               <a class="navbar-a" href="/admin/assists">Assists</a>&nbsp;|&nbsp;
               <a class="navbar-a" href="/admin/donations">Donations</a>&nbsp;|&nbsp;
               {{/is}}
-              <a href="/logout">
-                Logout
+              {{#if userType}}
+                <a class="navbar-a" href="/logout">
+                  Logout
                 </a>
+              {{else}}
+                <a class="navbar-a" href="/login">
+                  Login
+                </a>
+                &nbsp;|&nbsp;
+                <a class="navbar-a" href="/signup">
+                  Sign Up
+                </a>
+              {{/if}}
               </div>
             </div>
     </div>

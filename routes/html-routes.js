@@ -56,11 +56,13 @@ module.exports = (express) => {
       const confirmedAssistance = assistance.filter((item) => item.confirmed);
       const unconfirmedAssistance = assistance.filter((item) => !item.confirmed);
       const UserEmail = req.user.email;
+      const userType = 'client';
       res.render('clients', {
         assistance,
         confirmedAssistance,
         unconfirmedAssistance,
         UserEmail,
+        userType,
       });
     });
   });
@@ -78,12 +80,14 @@ module.exports = (express) => {
       const unconfirmedDonations = donations.filter((item) => !item.confirmed);
       const UserEmail = req.user.email;
       db.Product.findAll().then((products) => {
+        const userType = 'donor';
         res.render('donors', {
           donations,
           confirmedDonations,
           unconfirmedDonations,
           products,
           UserEmail,
+          userType,
         });
       });
     });
