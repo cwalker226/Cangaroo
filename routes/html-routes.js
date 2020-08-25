@@ -154,7 +154,7 @@ module.exports = (express) => {
     });
   });
 
-  router.get('/admin/assists', isAdmin, (req, res) => {
+  router.get('/admin/assistance', isAdmin, (req, res) => {
     db.Assist.findAll({
       include: [{
         model: db.User,
